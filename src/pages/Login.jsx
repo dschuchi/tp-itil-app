@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/account";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
+  const { login, user } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
