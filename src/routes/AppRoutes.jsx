@@ -4,6 +4,10 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import MainLayout from '../layouts/MainLayout';
 import ProtectedRoute from '../components/ProtectedRoute';
+import Configurations from '../pages/Configurations';
+import Incidents from '../pages/Incidents';
+import Changes from '../pages/Changes';
+import Problems from '../pages/Problems';
 
 function AppRoutes() {
     return (
@@ -14,6 +18,26 @@ function AppRoutes() {
                 <Route path="/" element={
                     <ProtectedRoute>
                         <Home />
+                    </ProtectedRoute>
+                } />
+                <Route path="/configurations" element={
+                    <ProtectedRoute>
+                        <Configurations />
+                    </ProtectedRoute>
+                } />
+                <Route path="/incidents" element={
+                    <ProtectedRoute>
+                        <Incidents />
+                    </ProtectedRoute>
+                } />
+                <Route path="/changes" element={
+                    <ProtectedRoute>
+                        <Changes />
+                    </ProtectedRoute>
+                } />
+                <Route path="/problems" element={
+                    <ProtectedRoute>
+                        <Problems />
                     </ProtectedRoute>
                 } />
             </Route>

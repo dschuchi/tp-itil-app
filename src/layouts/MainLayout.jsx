@@ -1,11 +1,12 @@
 import { Flex, Layout, Menu, Typography, Dropdown, Button } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const { Header, Content } = Layout;
 
 function MainLayout() {
     const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         await logout();
@@ -32,12 +33,14 @@ function MainLayout() {
                         theme="dark"
                         mode="horizontal"
                         items={[
-                            { key: '1', label: 'Configuración' },
-                            { key: '2', label: 'Incidentes' },
-                            { key: '3', label: 'Cambios' },
-                            { key: '4', label: 'Problemas' },
+                            { key: '', label: 'Inicio' },
+                            { key: 'configurations', label: 'Configuración' },
+                            { key: 'incidents', label: 'Incidentes' },
+                            { key: 'changes', label: 'Cambios' },
+                            { key: 'problems', label: 'Problemas' },
                         ]}
                         style={{ flex: 1, justifyContent: 'flex-end' }}
+                        onClick={(menuItem) => { navigate(`/${menuItem.key}`) }}
                     />
                     <Dropdown
                         menu={{ items: menuItems }}
