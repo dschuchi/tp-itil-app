@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input, Flex, Card, Layout, Typography } from 'antd';
+import { Button, Form, Input, Flex, Card, Layout, Typography, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { register } from '../api/account';
 
 const Register = () => {
     const navigate = useNavigate();
 
-    const onFinish = () => {
-        navigate('/');
+    const onFinish = async (values) => {
+        try {
+            await register(values.username, values.password);
+            message.success('Usuario registrado exitosamente');
+            navigate('/login');
+        } catch (error) {
+            message.error(error.message || 'Error al registrar usuario');
+        }
     };
 
     return (
