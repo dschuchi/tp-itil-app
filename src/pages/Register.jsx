@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input, Flex, Card, Layout } from 'antd';
+import { Button, Form, Input, Flex, Card, Layout, Typography } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 const Register = () => {
@@ -13,15 +13,18 @@ const Register = () => {
         <Layout
             style={{
                 minHeight: '100vh',
-                backgroundImage: 'url(login-background.avif)',
-                backgroundRepeat: 'repeat',
-                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                backgroundImage: 'url(login-background.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 backgroundBlendMode: 'overlay',
             }}
         >
             <Flex justify="center" align="center" style={{ height: '100vh' }}>
                 <Card>
-                    <img src='logo-fullname.png' style={{ maxWidth: 500, paddingBottom: 30 }} />
+                    <Typography.Title level={1} style={{ textAlign: 'center' }}>
+                        FIUBA ITIL
+                    </Typography.Title>
                     <Flex justify='center' align='center'>
                         <Form
                             name="register"
@@ -64,11 +67,11 @@ const Register = () => {
                             </Form.Item>
 
                             <Form.Item>
-                                <Flex justify='space-between' align='center' gap='large'> 
+                                <Flex justify='space-between' align='center' gap='large'>
                                     <Button type="primary" htmlType="submit" style={{ width: '50%' }}>
                                         Registrarse
                                     </Button>
-                                    <Button type="default" onClick={() => navigate('/')} style={{ width: '50%' }}>
+                                    <Button type="default" onClick={() => navigate('/login')} style={{ width: '50%' }}>
                                         Volver
                                     </Button>
                                 </Flex>
