@@ -53,7 +53,7 @@ function MainLayout() {
                     </Dropdown>
                 </Flex>
             </Header>
-            <Content style={{ flex: 1 }}>
+            <Content style={{ flex: 1, margin: '20px' }}>
                 <Outlet />
             </Content>
         </Layout>

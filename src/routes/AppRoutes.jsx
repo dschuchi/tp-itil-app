@@ -8,6 +8,7 @@ import Configurations from '../pages/Configurations';
 import Incidents from '../pages/Incidents';
 import Changes from '../pages/Changes';
 import Problems from '../pages/Problems';
+import ConfigurationsNew from '../pages/ConfigurationsNew';
 
 function AppRoutes() {
     return (
@@ -23,6 +24,11 @@ function AppRoutes() {
                 <Route path="/configurations" element={
                     <ProtectedRoute>
                         <Configurations />
+                    </ProtectedRoute>
+                } />
+                <Route path="/configurations/new" element={
+                    <ProtectedRoute>
+                        <ConfigurationsNew />
                     </ProtectedRoute>
                 } />
                 <Route path="/incidents" element={

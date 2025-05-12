@@ -14,7 +14,7 @@ export default function Home() {
   if (loading) return <p>Cargando...</p>;
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div>
       <Typography.Title>Panel</Typography.Title>
 
       <Row gutter={[16, 16]}>
