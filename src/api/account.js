@@ -1,28 +1,21 @@
-import axiosClient from "./axiosClient";
+import httpClient from "./httpClient";
 
 export async function login(email, password) {
-    const res = await axiosClient.post("/account/login", { email, password });
-    return res.data;
+  const res = await httpClient.post("/account/login", { email, password });
+  return res;
 }
 
 export async function register(email, password) {
-    const res = await axiosClient.post("/account/register", {
-        email,
-        password
-    });
-    return res.data;
+  const res = await httpClient.post("/account/register", { email, password });
+  return res;
 }
 
 export async function logout() {
-    const res = await axiosClient.post("/account/logout");
-    return res.data;
+  const res = await httpClient.post("/account/logout", {});
+  return res;
 }
 
-export async function fetchUserApi() {
-    const res = await axiosClient.get('/account/me', {
-        method: 'GET',
-        credentials: 'include'
-    });
-    if (!res.data) return null;
-    return await res.data;
+export async function me() {
+  const res = await httpClient.get("/account/me");
+  return res;
 }
