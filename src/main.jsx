@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './AppRoutes';
-import { AuthProvider } from './context/AuthContext';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { AuthProvider } from './context/AuthContext.jsx';
+import App from './App.jsx'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </React.StrictMode>
-);
+import 'antd/dist/reset.css';
+
+createRoot(document.getElementById('root')).render(
+    <StrictMode>
+        <AuthProvider>
+            <App />
+        </AuthProvider>
+    </StrictMode>,
+)
