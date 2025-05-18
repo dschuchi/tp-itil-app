@@ -7,3 +7,11 @@ export async function getConfigItems() {
     }
     return res;
 }
+
+export async function createConfigItem(data) {
+    const res = await httpClient.post("/configuration/create", data);
+    if (!res) {
+        throw new Error("Failed to create configuration item");
+    }
+    return res;
+}

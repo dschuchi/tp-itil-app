@@ -17,13 +17,13 @@ const Configurations = () => {
         },
         {
             title: 'Fecha de creación',
-            dataIndex: 'creationDate',
-            key: 'creationDate',
+            dataIndex: 'createdDate',
+            key: 'createdDate',
         },
         {
             title: 'Usuario',
-            dataIndex: 'createdBy',
-            key: 'createdBy',
+            dataIndex: 'user',
+            key: 'user',
         },
     ];
 
@@ -33,10 +33,11 @@ const Configurations = () => {
     useEffect(() => {
         getConfigItems().then((res) => {
             const formattedData = res.map((item) => ({
+                key: item.id,
                 id: item.id,
                 title: item.title,
-                creationDate: new Date(item.creationDate).toLocaleDateString(),
-                createdBy: item.createdBy,
+                createdDate: new Date(item.createdDate).toLocaleDateString(),
+                user: item.user,
             }));
             setData(formattedData);
         }).catch((error) => {
