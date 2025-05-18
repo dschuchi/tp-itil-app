@@ -1,5 +1,7 @@
 import { Button, Empty, Flex, Table, Typography } from 'antd';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getConfigItems } from '../api/configuration';
 
 const Configurations = () => {
     const columns = [
@@ -25,11 +27,22 @@ const Configurations = () => {
         },
     ];
 
-    const data = [
-
-    ];
-
+    const [data, setData] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        getConfigItems().then((res) => {
+            const formattedData = res.map((item) => ({
+                id: item.id,
+                title: item.title,
+                creationDate: new Date(item.creationDate).toLocaleDateString(),
+                createdBy: item.createdBy,
+            }));
+            setData(formattedData);
+        }).catch((error) => {
+            console.error('Error fetching configuration items:', error);
+        });
+    }, []);
 
     return (
         <div>
