@@ -10,6 +10,7 @@ import Changes from '../pages/Changes';
 import Problems from '../pages/Problems';
 import ConfigurationsNew from '../pages/ConfigurationsNew';
 import ProblemsNew from '../pages/ProblemsNew';
+import ChangesNew from '../pages/ChangesNew';
 
 function AppRoutes() {
     return (
@@ -26,6 +27,7 @@ function AppRoutes() {
                 <Route path="/configurations/new" element={<ConfigurationsNew />} />
                 <Route path="/incidents" element={<Incidents />} />
                 <Route path="/changes" element={<Changes />} />
+                <Route path="/changes/new" element={<ChangesNew />} />
                 <Route path="/problems" element={<Problems />} />
                 <Route path="/problems/new" element={<ProblemsNew />} />
             </Route>

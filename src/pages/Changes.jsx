@@ -1,9 +1,61 @@
+import { Button, Empty, Flex, Table, Typography } from "antd";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getChanges } from "../api/change";
 
 const Changes = () => {
+    const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'Título',
+            dataIndex: 'title',
+            key: 'title',
+        },
+        {
+            title: 'Fecha de creación',
+            dataIndex: 'createdDate',
+            key: 'createdDate',
+        },
+        {
+            title: 'Usuario',
+            dataIndex: 'user',
+            key: 'user',
+        },
+    ];
+
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+       getChanges()
+            .then((res) => {
+                const formattedData = res.map((item) => ({
+                    key: item.id,
+                    id: item.id,
+                    title: item.title,
+                    createdDate: new Date(item.createdDate).toLocaleDateString(),
+                    user: item.user,
+                }));
+                setData(formattedData);
+            })
+            .catch((error) => {
+                console.error('Error fetching changes:', error);
+            });
+    }, [])
+
     return (
         <div>
-            <h1>Changes</h1>
-            <p>This is the Changes page.</p>
+            <Flex justify='space-between' align='center'>
+                <Typography.Title>Cambios</Typography.Title>
+                <Button onClick={() => navigate('/changes/new')}>
+                    + Agregar
+                </Button>
+            </Flex>
+            <Table columns={columns} dataSource={data} pagination={false} locale={<Empty />} />
         </div>
     );
 };
