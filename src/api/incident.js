@@ -1,7 +1,7 @@
 import httpClient from "./httpClient";
 
 export async function getIncidents() {
-    const res = await httpClient.get("/incident");
+    const res = await httpClient.get("/incident/getincidents");
     if (!res) {
         throw new Error("Failed to fetch incidents");
     }
