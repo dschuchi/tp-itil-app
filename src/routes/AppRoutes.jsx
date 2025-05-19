@@ -12,6 +12,7 @@ import ConfigurationsNew from '../pages/ConfigurationsNew';
 import ProblemsNew from '../pages/ProblemsNew';
 import ChangesNew from '../pages/ChangesNew';
 import IncidentsNew from '../pages/IncidentsNew';
+import ConfigurationsDetail from '../pages/ConfigurationsDetail';
 
 function AppRoutes() {
     return (
@@ -25,6 +26,7 @@ function AppRoutes() {
             }>
                 <Route path="/" element={<Home />} />
                 <Route path="/configurations" element={<Configurations />} />
+                <Route path="/configurations/:id" element={<ConfigurationsDetail />} />
                 <Route path="/configurations/new" element={<ConfigurationsNew />} />
                 <Route path="/incidents" element={<Incidents />} />
                 <Route path="/incidents/new" element={<IncidentsNew />} />

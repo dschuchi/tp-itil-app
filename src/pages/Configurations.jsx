@@ -25,6 +25,15 @@ const Configurations = () => {
             dataIndex: 'user',
             key: 'user',
         },
+        {
+            title: 'Acciones',
+            key: 'actions',
+            render: (text, record) => (
+                <Button onClick={() => navigate(`/configurations/${record.id}`, { state: record })}>
+                    Ver Detalles
+                </Button>
+            ),
+        }
     ];
 
     const [data, setData] = useState([]);
