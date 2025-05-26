@@ -21,10 +21,19 @@ const Problems = () => {
             key: 'createdDate',
         },
         {
-            title: 'Usuario',
-            dataIndex: 'user',
-            key: 'user',
+            title: 'Usuario Asignado',
+            dataIndex: 'assignedUser',
+            key: 'assignedUser',
         },
+        {
+            title: 'Acciones',
+            key: 'actions',
+            render: (text, record) => (
+                <Button onClick={() => navigate(`/problems/${record.id}`)}>
+                    Ver Detalles
+                </Button>
+            ),
+        }
     ];
 
     const [data, setData] = useState([]);
@@ -38,7 +47,7 @@ const Problems = () => {
                     id: item.id,
                     title: item.title,
                     createdDate: new Date(item.createdDate).toLocaleDateString(),
-                    user: item.user,
+                    assignedUser: item.assignedUser.email,
                 }));
                 setData(formattedData);
             })
