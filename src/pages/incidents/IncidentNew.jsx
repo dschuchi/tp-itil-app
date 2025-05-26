@@ -1,9 +1,7 @@
-import { Button, Form, Input, Select } from 'antd';
+import { Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { createIncident } from '../../api/incident';
-import SelectConfigItem from '../../components/SelectConfigItem';
-import SelectAssignedUser from '../../components/SelectAssignedUser';
 import IncidentForm from './IncidentForm';
 
 const { TextArea } = Input;
