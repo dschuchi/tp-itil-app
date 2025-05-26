@@ -15,3 +15,11 @@ export async function createProblem(data) {
     }
     return res;
 }
+
+export async function getProblem(id) {
+    const res = await httpClient.get(`/problem/${id}`);
+    if (!res) {
+        throw new Error("Failed to fetch problem");
+    }
+    return res;
+}

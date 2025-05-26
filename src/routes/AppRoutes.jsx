@@ -19,6 +19,7 @@ import ChangesNew from '../pages/changes/ChangesNew';
 import Incidents from '../pages/incidents/Incidents';
 import IncidentNew from '../pages/incidents/IncidentNew';
 import IncidentDetail from '../pages/incidents/IncidentDetail';
+import ProblemsDetail from '../pages/problems/ProblemsDetail';
 
 function AppRoutes() {
     return (
@@ -45,6 +46,7 @@ function AppRoutes() {
 
                 <Route path="/problems" element={<Problems />} />
                 <Route path="/problems/new" element={<ProblemsNew />} />
+                <Route path="/problems/:id" element={<ProblemsDetail />} />
             </Route>
         </Routes>
     );
