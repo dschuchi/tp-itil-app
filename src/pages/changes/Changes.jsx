@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getChanges } from "../api/change";
+import { getChanges } from "../../api/change";
 
 const Changes = () => {
     const columns = [
