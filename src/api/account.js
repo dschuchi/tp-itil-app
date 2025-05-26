@@ -19,3 +19,8 @@ export async function me() {
   const res = await httpClient.get("/account/me");
   return res;
 }
+
+export async function getUsers() {
+  const res = await httpClient.get("/account/users");
+  return res;
+}

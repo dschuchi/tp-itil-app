@@ -2,6 +2,8 @@ import { Button, Form, Input, Select } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { createIncident } from '../api/incident';
+import SelectConfigItem from '../components/SelectConfigItem';
+import SelectAssignedUser from '../components/SelectAssignedUser';
 
 const { TextArea } = Input;
 
@@ -52,9 +54,9 @@ const IncidentsNew = () => {
                 <Form.Item
                     label='Config Item'
                     name='configurationItemId'
-                    rules={[{ required: true, message: 'Por favor ingrese el Config Item' }]}
+                    rules={[{ required: true, message: 'Por favor seleccione el Config Item' }]}
                 >
-                    <Input placeholder="Ingrese el Config Item" />
+                    <SelectConfigItem />
                 </Form.Item>
 
                 <Form.Item
@@ -97,9 +99,9 @@ const IncidentsNew = () => {
                 <Form.Item
                     label='Usuario Asignado'
                     name='assignedUserId'
-                    rules={[{ required: true, message: 'Por favor ingrese el Usuario Asignado' }]}
+                    rules={[{ required: true, message: 'Por favor seleccione el Usuario Asignado' }]}
                 >
-                    <Input placeholder="Ingrese el Usuario Asignado" />
+                    <SelectAssignedUser />
                 </Form.Item>
 
                 <Form.Item
