@@ -15,3 +15,11 @@ export async function createIncident(data) {
     }
     return res;
 }
+
+export async function getIncident(id) {
+    const res = await httpClient.get(`/incident/${id}`);
+    if (!res) {
+        throw new Error("Failed to fetch incident");
+    }
+    return res;
+}

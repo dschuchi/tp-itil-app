@@ -2,7 +2,7 @@ import { Select } from 'antd';
 import { useEffect, useState } from 'react';
 import { getUsers } from '../api/account';
 
-const SelectAssignedUser = ({ value, onChange, placeholder = 'Seleccione un usuario' }) => {
+const SelectAssignedUser = ({ value, onChange, placeholder = 'Seleccione un usuario', ...rest }) => {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -29,6 +29,7 @@ const SelectAssignedUser = ({ value, onChange, placeholder = 'Seleccione un usua
                 option.label.toLowerCase().includes(input.toLowerCase())
             }
             options={options}
+            {...rest}
         />
     );
 };

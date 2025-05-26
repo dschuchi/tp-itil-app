@@ -2,7 +2,7 @@ import { Select } from 'antd';
 import { useEffect, useState } from 'react';
 import { getConfigItems } from '../api/configuration';
 
-const SelectConfigItem = ({ value, onChange, placeholder = 'Seleccione el Config Item' }) => {
+const SelectConfigItem = ({ value, onChange, placeholder = 'Seleccione el Config Item', ...rest }) => {
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
@@ -29,6 +29,7 @@ const SelectConfigItem = ({ value, onChange, placeholder = 'Seleccione el Config
                 option.label.toLowerCase().includes(input.toLowerCase())
             }
             options={options}
+            {...rest}
         />
     );
 };

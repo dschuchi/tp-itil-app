@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getIncidents } from "../api/incident";
+import { getIncidents } from "../../api/incident";
 
 const Incidents = () => {
     const columns = [
@@ -29,7 +29,7 @@ const Incidents = () => {
             title: 'Acciones',
             key: 'actions',
             render: (text, record) => (
-                <Button onClick={() => navigate(`/configurations/${record.id}`)}>
+                <Button onClick={() => navigate(`/incidents/${record.id}`)}>
                     Ver Detalles
                 </Button>
             ),
