@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Table, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getConfigItems } from '../api/configuration';
+import { getConfigItems } from '../../api/configuration';
 
 const Configurations = () => {
     const columns = [

@@ -1,7 +1,7 @@
 import { Form, Input, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { createConfigItem } from '../api/configuration';
+import { useAuth } from '../../context/AuthContext';
+import { createConfigItem } from '../../api/configuration';
 
 const { TextArea } = Input;
 

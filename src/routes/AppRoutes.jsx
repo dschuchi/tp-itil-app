@@ -6,9 +6,9 @@ import MainLayout from '../layouts/MainLayout';
 
 import Home from '../pages/Home';
 
-import Configurations from '../pages/Configurations';
-import ConfigurationsNew from '../pages/ConfigurationsNew';
-import ConfigurationsDetail from '../pages/ConfigurationsDetail';
+import Configurations from '../pages/configurations/Configurations';
+import ConfigurationsNew from '../pages/configurations/ConfigurationsNew';
+import ConfigurationsDetail from '../pages/configurations/ConfigurationsDetail';
 
 import Problems from '../pages/problems/Problems';
 import ProblemsNew from '../pages/problems/ProblemsNew';
