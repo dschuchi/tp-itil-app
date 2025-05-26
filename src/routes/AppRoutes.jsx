@@ -10,8 +10,8 @@ import Configurations from '../pages/Configurations';
 import ConfigurationsNew from '../pages/ConfigurationsNew';
 import ConfigurationsDetail from '../pages/ConfigurationsDetail';
 
-import Problems from '../pages/Problems';
-import ProblemsNew from '../pages/ProblemsNew';
+import Problems from '../pages/problems/Problems';
+import ProblemsNew from '../pages/problems/ProblemsNew';
 
 import Changes from '../pages/changes/Changes';
 import ChangesNew from '../pages/changes/ChangesNew';
