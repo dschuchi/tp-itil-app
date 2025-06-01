@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Table, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getConfigItems } from '../../api/configuration';
+import { deleteConfigItem, getConfigItems } from '../../api/configuration';
 
 const Configurations = () => {
     const columns = [
@@ -29,17 +29,32 @@ const Configurations = () => {
             title: 'Acciones',
             key: 'actions',
             render: (text, record) => (
-                <Button onClick={() => navigate(`/configurations/${record.id}`)}>
-                    Ver Detalles
-                </Button>
+                <>
+                    <Button onClick={() => navigate(`/configurations/${record.id}`)}>
+                        Ver Detalles
+                    </Button>
+                    <Button onClick={() => handleDelete(record.id)}>
+                        Borrar
+                    </Button>
+                </>
             ),
         }
     ];
 
+    const handleDelete = (id) => {
+        deleteConfigItem(id)
+            .then(() => {
+                loadConfigItems()
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const loadConfigItems = () => {
         getConfigItems().then((res) => {
             const formattedData = res.map((item) => ({
                 key: item.id,
@@ -52,6 +67,10 @@ const Configurations = () => {
         }).catch((error) => {
             console.error('Error fetching configuration items:', error);
         });
+    }
+
+    useEffect(() => {
+        loadConfigItems()
     }, []);
 
     return (
