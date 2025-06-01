@@ -23,3 +23,11 @@ export async function getIncident(id) {
     }
     return res;
 }
+
+export async function updateIncident(id, data) {
+    const res = await httpClient.patch(`/incident/${id}`, data);
+    if (!res) {
+        throw new Error("Failed to patch incident");
+    }
+    return res;
+}

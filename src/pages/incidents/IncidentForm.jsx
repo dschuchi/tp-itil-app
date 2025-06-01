@@ -4,7 +4,7 @@ import SelectConfigItem from '../../components/SelectConfigItem';
 
 const { TextArea } = Input;
 
-const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, initialValues = {} }) => {
+const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, initialValues = {}, edit = false }) => {
     return (
         <Form
             form={form}
@@ -12,6 +12,28 @@ const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, i
             onFinish={onFinish}
             initialValues={initialValues}
         >
+            {submitButton && (
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" disabled={disabled && !edit}>
+                        Guardar
+                    </Button>
+                </Form.Item>
+            )}
+
+            <Form.Item label="Estado" name="state">
+                <Select disabled={disabled && !edit}>
+                    <Select.Option value="open">Abierto</Select.Option>
+                    <Select.Option value="in_progress">En Progreso</Select.Option>
+                    <Select.Option value="resolved">Resuelto</Select.Option>
+                    <Select.Option value="closed">Cerrado</Select.Option>
+                    <Select.Option value="IMPLEMENTADO">Implementado</Select.Option>
+                </Select>
+            </Form.Item>
+
+            <Form.Item label="Usuario Asignado" name="assignedUserId">
+                <SelectAssignedUser disabled={disabled && !edit} />
+            </Form.Item>
+
             <Form.Item label="Título" name="title">
                 <Input disabled={disabled} />
             </Form.Item>
@@ -36,19 +58,6 @@ const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, i
                 <Input disabled={disabled} />
             </Form.Item>
 
-            <Form.Item label="Estado" name="state">
-                <Select disabled={disabled}>
-                    <Select.Option value="open">Abierto</Select.Option>
-                    <Select.Option value="in_progress">En Progreso</Select.Option>
-                    <Select.Option value="resolved">Resuelto</Select.Option>
-                    <Select.Option value="closed">Cerrado</Select.Option>
-                </Select>
-            </Form.Item>
-
-            <Form.Item label="Usuario Asignado" name="assignedUserId">
-                <SelectAssignedUser disabled={disabled} />
-            </Form.Item>
-
             <Form.Item label="Impacto" name="impact">
                 <Select disabled={disabled}>
                     <Select.Option value="low">Bajo</Select.Option>
@@ -64,14 +73,6 @@ const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, i
                     <Select.Option value="high">Alto</Select.Option>
                 </Select>
             </Form.Item>
-
-            {submitButton && (
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" disabled={disabled}>
-                        Guardar
-                    </Button>
-                </Form.Item>
-            )}
         </Form>
     );
 };
