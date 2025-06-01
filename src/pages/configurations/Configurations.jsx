@@ -29,7 +29,7 @@ const Configurations = () => {
             title: 'Acciones',
             key: 'actions',
             render: (text, record) => (
-                <Button onClick={() => navigate(`/configurations/${record.id}`, { state: record })}>
+                <Button onClick={() => navigate(`/configurations/${record.id}`)}>
                     Ver Detalles
                 </Button>
             ),

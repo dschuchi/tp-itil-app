@@ -15,3 +15,11 @@ export async function createConfigItem(data) {
     }
     return res;
 }
+
+export async function getConfigItem(id) {
+    const res = await httpClient.get(`/configuration/item/${id}`);
+    if (!res) {
+        throw new Error("Failed to fetch incident");
+    }
+    return res;
+}
