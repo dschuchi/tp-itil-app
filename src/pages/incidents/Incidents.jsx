@@ -42,7 +42,7 @@ const Incidents = () => {
     useEffect(() => {
         getIncidents()
             .then((res) => {
-                const formattedData = res.map((item) => ({
+                const formattedData = res.$values.map((item) => ({
                     key: item.id,
                     id: item.id,
                     title: item.title,
