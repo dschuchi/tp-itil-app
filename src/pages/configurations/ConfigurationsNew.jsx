@@ -1,9 +1,8 @@
-import { Form, Input, Button } from 'antd';
+import { Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { createConfigItem } from '../../api/configuration';
-
-const { TextArea } = Input;
+import ConfigurationForm from './ConfigurationForm';
 
 const ConfigurationsNew = () => {
     const [form] = Form.useForm();
@@ -29,41 +28,10 @@ const ConfigurationsNew = () => {
     };
 
     return (
-        <div>
+        <>
             <h1>Crear Item de Configuración</h1>
-            <Form
-                form={form}
-                layout="vertical"
-                onFinish={handleSubmit}
-                initialValues={{
-                    name: '',
-                    description: '',
-                    type: '',
-                }}
-            >
-                <Form.Item
-                    label="Titulo"
-                    name="title"
-                    rules={[{ required: true, message: 'Por favor ingrese el titulo' }]}
-                >
-                    <Input placeholder="Ingrese el titulo" />
-                </Form.Item>
-
-                <Form.Item
-                    label="Descripción"
-                    name="description"
-                    rules={[{ required: true, message: 'Por favor ingrese la descripción' }]}
-                >
-                    <TextArea placeholder="Ingrese la descripción" rows={4} />
-                </Form.Item>
-
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Crear
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
+            <ConfigurationForm form={form} onFinish={handleSubmit} />
+        </>
     );
 };
 

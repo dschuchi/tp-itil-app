@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import { Empty, Form, Input, List } from "antd";
+import { Empty, Form, List } from "antd";
 import { getConfigItem } from "../../api/configuration";
 import { useEffect, useState } from "react";
+import ConfigurationForm from "./ConfigurationForm";
 
 const ConfigurationsDetail = () => {
     const { id } = useParams();
@@ -23,22 +24,7 @@ const ConfigurationsDetail = () => {
 
     return (
         <div>
-            <Form
-                initialValues={item}
-            >
-                <Form.Item label="ID" name="id">
-                    <Input disabled />
-                </Form.Item>
-                <Form.Item label="Titulo" name="title">
-                    <Input disabled />
-                </Form.Item>
-                <Form.Item label="Descripción" name="description">
-                    <Input.TextArea disabled />
-                </Form.Item>
-                <Form.Item label="Fecha de creación" name="createdDate">
-                    <Input disabled />
-                </Form.Item>
-            </Form>
+            <ConfigurationForm form={form} disabled={true} submitButton={false} />
 
             <h3>Incidentes relacionados</h3>
             <List
