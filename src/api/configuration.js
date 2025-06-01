@@ -31,3 +31,11 @@ export async function deleteConfigItem(id) {
     }
     return res;
 }
+
+export async function getConfigItemIncidents(id) {
+    const res = await httpClient.get(`/configuration/item/${id}/incidents`);
+    if (!res) {
+        throw new Error("Failed to fetch incidents");
+    }
+    return res;
+}

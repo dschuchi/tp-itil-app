@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { Empty, Form, List } from "antd";
-import { getConfigItem } from "../../api/configuration";
+import { getConfigItem, getConfigItemIncidents } from "../../api/configuration";
 import { useEffect, useState } from "react";
 import ConfigurationForm from "./ConfigurationForm";
 
 const ConfigurationsDetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
+    const [incidents, setIncidents] = useState([])
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -20,6 +21,12 @@ const ConfigurationsDetail = () => {
             })
     }, [id]);
 
+    useEffect(() => {
+        getConfigItemIncidents(id)
+            .then(setIncidents)
+            .catch(console.error)
+    }, []);
+
     if (!item) return <p>No hay datos para mostrar.</p>;
 
     return (
@@ -28,14 +35,11 @@ const ConfigurationsDetail = () => {
 
             <h3>Incidentes relacionados</h3>
             <List
-                dataSource={item.incidents || []}
+                dataSource={incidents}
                 locale={<Empty />}
                 renderItem={incident => (
                     <List.Item>
-                        <List.Item.Meta
-                            title={incident.title}
-                            description={incident.description}
-                        />
+                        {incident.id} - {incident.title}
                     </List.Item>
                 )}
             />
