@@ -4,6 +4,38 @@ import { useNavigate } from 'react-router-dom';
 import { deleteConfigItem, getConfigItems } from '../../api/configuration';
 
 const Configurations = () => {
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
+
+    const handleDelete = (id) => {
+        deleteConfigItem(id)
+            .then(() => {
+                loadConfigItems()
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+    const loadConfigItems = () => {
+        getConfigItems().then((res) => {
+            const formattedData = res.map((item) => ({
+                key: item.id,
+                id: item.id,
+                title: item.title,
+                createdDate: new Date(item.createdDate).toLocaleDateString(),
+                user: item.user,
+            }));
+            setData(formattedData);
+        }).catch((error) => {
+            console.error('Error fetching configuration items:', error);
+        });
+    }
+
+    useEffect(() => {
+        loadConfigItems()
+    }, []);
+
     const columns = [
         {
             title: 'ID',
@@ -40,38 +72,6 @@ const Configurations = () => {
             ),
         }
     ];
-
-    const handleDelete = (id) => {
-        deleteConfigItem(id)
-            .then(() => {
-                loadConfigItems()
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const [data, setData] = useState([]);
-    const navigate = useNavigate();
-
-    const loadConfigItems = () => {
-        getConfigItems().then((res) => {
-            const formattedData = res.map((item) => ({
-                key: item.id,
-                id: item.id,
-                title: item.title,
-                createdDate: new Date(item.createdDate).toLocaleDateString(),
-                user: item.user,
-            }));
-            setData(formattedData);
-        }).catch((error) => {
-            console.error('Error fetching configuration items:', error);
-        });
-    }
-
-    useEffect(() => {
-        loadConfigItems()
-    }, []);
 
     return (
         <div>
