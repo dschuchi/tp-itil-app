@@ -2,6 +2,7 @@ import { Button, Empty, Flex, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getIncidents } from "../../api/incident";
+import { getUsers } from "../../api/account";
 
 const Incidents = () => {
     const columns = [
@@ -21,9 +22,19 @@ const Incidents = () => {
             key: 'createdDate',
         },
         {
-            title: 'Usuario',
-            dataIndex: 'user',
-            key: 'user',
+            title: 'Ultima actualización',
+            dataIndex: 'lastUpdated',
+            key: 'lastUpdated',
+        },
+        {
+            title: 'Usuario asignado',
+            dataIndex: 'assignedUserId',
+            key: 'assignedUserId',
+        },
+        {
+            title: 'Estado',
+            dataIndex: 'status',
+            key: 'status',
         },
         {
             title: 'Acciones',
@@ -40,20 +51,26 @@ const Incidents = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getIncidents()
-            .then((res) => {
-                const formattedData = res.map((item) => ({
-                    key: item.id,
-                    id: item.id,
-                    title: item.title,
-                    createdDate: new Date(item.createdDate).toLocaleDateString(),
-                    user: item.user,
-                }));
-                setData(formattedData);
+        getUsers()
+            .then(users => {
+                getIncidents()
+                    .then((res) => {
+                        const formattedData = res.map((item) => ({
+                            key: item.id,
+                            id: item.id,
+                            title: item.title,
+                            createdDate: new Date(item.createdDate).toLocaleDateString(),
+                            assignedUserId: users[item.assignedUserId],
+                            status: item.state,
+                            lastUpdated: new Date(item.lastUpdated).toLocaleDateString(),
+                        }));
+                        setData(formattedData);
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching incidents:', error);
+                    });
             })
-            .catch((error) => {
-                console.error('Error fetching incidents:', error);
-            });
+            .catch(console.error)
     }, []);
 
     return (
