@@ -12,14 +12,15 @@ import ConfigurationsDetail from '../pages/configurations/ConfigurationsDetail';
 
 import Problems from '../pages/problems/Problems';
 import ProblemsNew from '../pages/problems/ProblemsNew';
+import ProblemsDetail from '../pages/problems/ProblemsDetail';
 
 import Changes from '../pages/changes/Changes';
 import ChangesNew from '../pages/changes/ChangesNew';
+import ChangeDetail from '../pages/changes/ChangeDetail';
 
 import Incidents from '../pages/incidents/Incidents';
 import IncidentNew from '../pages/incidents/IncidentNew';
 import IncidentDetail from '../pages/incidents/IncidentDetail';
-import ProblemsDetail from '../pages/problems/ProblemsDetail';
 
 function AppRoutes() {
     return (
@@ -43,6 +44,7 @@ function AppRoutes() {
 
                 <Route path="/changes" element={<Changes />} />
                 <Route path="/changes/new" element={<ChangesNew />} />
+                <Route path="/changes/:id" element={<ChangeDetail />} />
 
                 <Route path="/problems" element={<Problems />} />
                 <Route path="/problems/new" element={<ProblemsNew />} />

@@ -21,24 +21,50 @@ const Changes = () => {
             key: 'createdDate',
         },
         {
-            title: 'Usuario',
-            dataIndex: 'user',
-            key: 'user',
+            title: 'Fecha programada',
+            dataIndex: 'scheduledDate',
+            key: 'scheduledDate',
         },
+        {
+            title: 'Usuario asignado',
+            dataIndex: 'assignedUser',
+            key: 'assignedUser',
+        },
+        {
+            title: 'Estado',
+            dataIndex: 'status',
+            key: 'status',
+        },
+        {
+            title: 'Acciones',
+            key: 'actions',
+            render: (text, record) => (
+                <>
+                    <Button onClick={() => navigate(`/changes/${record.id}`)}>
+                        Ver Detalles
+                    </Button>
+                    <Button onClick={() => handleDelete(record.id)}>
+                        Borrar
+                    </Button>
+                </>
+            ),
+        }
     ];
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-       getChanges()
+        getChanges()
             .then((res) => {
                 const formattedData = res.map((item) => ({
                     key: item.id,
                     id: item.id,
                     title: item.title,
                     createdDate: new Date(item.createdDate).toLocaleDateString(),
-                    user: item.user,
+                    assignedUser: item.assignedUser.email,
+                    status: item.state,
+                    scheduledDate: new Date(item.scheduledDate).toLocaleDateString()
                 }));
                 setData(formattedData);
             })

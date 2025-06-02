@@ -15,3 +15,19 @@ export async function createChange(data) {
     }
     return res;
 }
+
+export async function getChange(id) {
+    const res = await httpClient.get(`/change/${id}`);
+    if (!res) {
+        throw new Error("Failed to fetch change");
+    }
+    return res;
+}
+
+export async function updateChange(id, data) {
+    const res = await httpClient.patch(`/change/${id}`, data);
+    if (!res) {
+        throw new Error("Failed to update change");
+    }
+    return res;
+}

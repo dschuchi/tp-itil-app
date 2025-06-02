@@ -1,4 +1,4 @@
-import { Form, Input, Select, DatePicker } from 'antd';
+import { Form, Input, Select, DatePicker, Button } from 'antd';
 import SelectConfigItem from '../../components/SelectConfigItem';
 import SelectAssignedUser from '../../components/SelectAssignedUser';
 import SelectProblems from '../../components/SelectProblems';
@@ -6,7 +6,7 @@ import SelectIncidents from '../../components/SelectIncidents';
 
 const { TextArea } = Input;
 
-const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, initialValues = {} }) => {
+const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, initialValues = {}, edit = false }) => {
     return (
         <Form
             form={form}
@@ -14,28 +14,16 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
             onFinish={onFinish}
             initialValues={initialValues}
         >
-            <Form.Item label="Título" name="title" rules={[{ required: true, message: 'Ingrese un título' }]}>
-                <Input disabled={disabled} />
-            </Form.Item>
+            {submitButton && (
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" disabled={disabled && !edit}>
+                        Guardar
+                    </Button>
+                </Form.Item>
+            )}
 
-            <Form.Item label="Descripción" name="description" rules={[{ required: true, message: 'Ingrese una descripción' }]}>
-                <TextArea rows={4} disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item label="Config Item" name="configurationItemId" rules={[{ required: true }]}>
-                <SelectConfigItem disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item label="Nombre del Cliente" name="clientName" rules={[{ required: true }]}>
-                <Input disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item label="Email del Cliente" name="clientEmail" rules={[{ required: true }]}>
-                <Input disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item label="Estado" name="state" rules={[{ required: true }]}>
-                <Select disabled={disabled}>
+            <Form.Item label="Estado" name="state">
+                <Select disabled={disabled && !edit}>
                     <Select.Option value="open">Abierto</Select.Option>
                     <Select.Option value="in_progress">En Progreso</Select.Option>
                     <Select.Option value="implemented">Implementado</Select.Option>
@@ -43,11 +31,31 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
                 </Select>
             </Form.Item>
 
-            <Form.Item label="Usuario Asignado" name="assignedUserId" rules={[{ required: true }]}>
-                <SelectAssignedUser disabled={disabled} />
+            <Form.Item label="Usuario Asignado" name="assignedUserId">
+                <SelectAssignedUser disabled={disabled && !edit} />
             </Form.Item>
 
-            <Form.Item label="Impacto" name="impact" rules={[{ required: true }]}>
+            <Form.Item label="Título" name="title">
+                <Input disabled={disabled} />
+            </Form.Item>
+
+            <Form.Item label="Descripción" name="description">
+                <TextArea rows={4} disabled={disabled} />
+            </Form.Item>
+
+            <Form.Item label="Config Item" name="configurationItemId">
+                <SelectConfigItem disabled={disabled} />
+            </Form.Item>
+
+            <Form.Item label="Nombre del Cliente" name="clientName">
+                <Input disabled={disabled} />
+            </Form.Item>
+
+            <Form.Item label="Email del Cliente" name="clientEmail">
+                <Input disabled={disabled} />
+            </Form.Item>
+
+            <Form.Item label="Impacto" name="impact">
                 <Select disabled={disabled}>
                     <Select.Option value="low">Bajo</Select.Option>
                     <Select.Option value="medium">Medio</Select.Option>
@@ -55,7 +63,7 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
                 </Select>
             </Form.Item>
 
-            <Form.Item label="Prioridad" name="priority" rules={[{ required: true }]}>
+            <Form.Item label="Prioridad" name="priority">
                 <Select disabled={disabled}>
                     <Select.Option value="low">Baja</Select.Option>
                     <Select.Option value="medium">Media</Select.Option>
@@ -63,14 +71,13 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
                 </Select>
             </Form.Item>
 
-            <Form.Item label="Fecha Programada" name="scheduledDate" rules={[{ required: true, message: 'Ingrese la fecha programada' }]}>
+            <Form.Item label="Fecha Programada" name="scheduledDate">
                 <DatePicker disabled={disabled} style={{ width: '100%' }} />
             </Form.Item>
 
             <Form.Item
                 label="Incidentes Asociados"
                 name="incidentIds"
-                rules={[{ message: 'Seleccione al menos un incidente' }]}
             >
                 <SelectIncidents disabled={disabled} />
             </Form.Item>
@@ -78,18 +85,9 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
             <Form.Item
                 label="Problemas Asociados"
                 name="problemIds"
-                rules={[{ message: 'Seleccione al menos un problema' }]}
             >
                 <SelectProblems disabled={disabled} />
             </Form.Item>
-
-            {submitButton && (
-                <Form.Item>
-                    <button type="submit" className="ant-btn ant-btn-primary" disabled={disabled}>
-                        Guardar Cambio
-                    </button>
-                </Form.Item>
-            )}
         </Form>
     );
 };
