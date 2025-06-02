@@ -2,6 +2,7 @@ import { Button, Empty, Flex, Table, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteConfigItem, getConfigItems } from '../../api/configuration';
+import { getUsers } from '../../api/account';
 
 const Configurations = () => {
     const [data, setData] = useState([]);
@@ -18,18 +19,22 @@ const Configurations = () => {
     }
 
     const loadConfigItems = () => {
-        getConfigItems().then((res) => {
-            const formattedData = res.map((item) => ({
-                key: item.id,
-                id: item.id,
-                title: item.title,
-                createdDate: new Date(item.createdDate).toLocaleDateString(),
-                user: item.user,
-            }));
-            setData(formattedData);
-        }).catch((error) => {
-            console.error('Error fetching configuration items:', error);
-        });
+        getUsers()
+            .then(users => {
+                getConfigItems().then((res) => {
+                    const formattedData = res.map((item) => ({
+                        key: item.id,
+                        id: item.id,
+                        title: item.title,
+                        createdDate: new Date(item.createdDate).toLocaleDateString(),
+                        user: users[item.userId],
+                    }));
+                    setData(formattedData);
+                }).catch((error) => {
+                    console.error('Error fetching configuration items:', error);
+                });
+            })
+            .catch(console.error)
     }
 
     useEffect(() => {
