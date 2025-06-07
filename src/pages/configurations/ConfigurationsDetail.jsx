@@ -7,6 +7,7 @@ import ConfigurationForm from "./ConfigurationForm";
 const ConfigurationsDetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
+    const [history, setHistory] = useState([])
     const [incidents, setIncidents] = useState([])
     const [form] = Form.useForm();
 
@@ -15,6 +16,15 @@ const ConfigurationsDetail = () => {
             .then(data => {
                 setItem(data);
                 form.setFieldsValue(data);
+                const parsed = Object.values(JSON.parse(data.versionHistory)).map((item, i) => {
+                    const [tituloPart, descripcionPart] = item.split("|");
+                    return {
+                        id: i+1,
+                        titulo: tituloPart.replace("Titulo:", "").trim(),
+                        descripcion: descripcionPart.replace("Descripcion:", "").trim(),
+                    };
+                });
+                setHistory(parsed.reverse());
             })
             .catch(err => {
                 console.error('Error al cargar el item de configuración.', err);
@@ -43,6 +53,19 @@ const ConfigurationsDetail = () => {
                     </List.Item>
                 )}
             />
+
+
+            <h3>Historial de cambios</h3>
+            <List
+                dataSource={history}
+                locale={<Empty />}
+                renderItem={h => (
+                    <List.Item>
+                        {h.id} - Titulo: {h.titulo} - Descripción: {h.descripcion}
+                    </List.Item>
+                )}
+            />
+
         </div>
     );
 };
