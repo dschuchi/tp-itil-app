@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Card, Statistic, Spin } from 'antd';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
-import dayjs from 'dayjs';
-import { getIncidentsMetrics } from '../../api/metrics'
+import { getIncidentsMetrics } from '../../api/metrics';
+
+const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const IncidentCharts = () => {
     const [data, setData] = useState(null);
@@ -25,12 +26,8 @@ const IncidentCharts = () => {
     if (loading) return <Spin />;
     if (!data) return <div>Error al cargar los datos.</div>;
 
-    const last7Days = Array.from({ length: 7 }, (_, i) =>
-        dayjs().subtract(6 - i, 'day').format('ddd DD/MM')
-    );
-
     const incidentsByDay = data.incidentsPerDay.map((count, index) => ({
-        date: last7Days[index],
+        day: daysOfWeek[index],
         incidents: count,
     }));
 
@@ -54,18 +51,18 @@ const IncidentCharts = () => {
                 </Col>
                 <Col span={8}>
                     <Card>
-                        <Statistic title="Promedio resolución" value={data.avgResolutionTime.split('.')[0]} />
+                        <Statistic title="Tiempo promedio de resolución" value={data.avgResolutionTime.split('.')[0]} />
                     </Card>
                 </Col>
             </Row>
 
             <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
                 <Col span={24} md={12}>
-                    <Card title="Incidentes por día (últimos 7 días)">
+                    <Card title="Incidentes por día">
                         <ResponsiveContainer width="100%" height={300}>
                             <BarChart data={incidentsByDay}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="date" />
+                                <XAxis dataKey="day" />
                                 <YAxis />
                                 <Tooltip />
                                 <Legend />
