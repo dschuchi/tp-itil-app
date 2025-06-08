@@ -31,3 +31,19 @@ export async function updateIncident(id, data) {
     }
     return res;
 }
+
+export async function getComments(idIncident) {
+    const res = await httpClient.get(`/incident/${idIncident}/comments`);
+    if (!res) {
+        throw new Error("Failed to fetch incident comments");
+    }
+    return res;
+}
+
+export async function postComment(idIncident, comment) {
+     const res = await httpClient.post(`/incident/${idIncident}/comments`, comment);
+    if (!res) {
+        throw new Error("Failed to fetch incident comments");
+    }
+    return res;
+}
