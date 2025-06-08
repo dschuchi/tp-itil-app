@@ -1,11 +1,11 @@
-import { Button, Form, List, Space, Spin, Typography } from "antd";
+import { Button, Form, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ChangeForm from "./ChangeForm";
 import { deleteChangeRelatedIncidents, deleteChangeRelatedProblem, getChange, getChangeComments, getChangeRelatedIncidents, getChangeRelatedProblems, postChangeComment, updateChange } from "../../api/change";
 import dayjs from 'dayjs'
 import CommentSection from "../../components/CommentSection";
-import { CloseCircleOutlined, LinkOutlined } from "@ant-design/icons";
+import RelatedItemList from "../../components/RelatedItemList";
 
 const ChangeDetail = () => {
     const { id } = useParams();
@@ -77,44 +77,18 @@ const ChangeDetail = () => {
             <Button onClick={() => setEdit(!edit)}>Editar</Button>
             <ChangeForm form={form} disabled={true} submitButton={edit} onFinish={handleSubmit} edit={edit} />
 
-            <List
-                dataSource={incidents}
-                header={<strong>Incidentes relacionados</strong>}
-                renderItem={i => (
-                    <List.Item>
-                        <Space>
-                            <Button onClick={() => handleDeleteIncident(i.id)}>
-                                <CloseCircleOutlined />
-                            </Button>
-                            <Link to={`/incidents/${i.id}`}>
-                                <LinkOutlined /> {i.id}
-                            </Link>
-                            <Typography.Text>
-                                - {i.title}
-                            </Typography.Text>
-                        </Space>
-                    </List.Item>
-                )}
+            <RelatedItemList
+                data={incidents}
+                header="Incidentes relacionados"
+                basePath="/incidents"
+                onDelete={handleDeleteIncident}
             />
 
-            <List
-                dataSource={problems}
-                header={<strong>Problemas relacionados</strong>}
-                renderItem={p => (
-                    <List.Item>
-                        <Space>
-                            <Button onClick={() => handleDeleteProblem(p.id)}>
-                                <CloseCircleOutlined />
-                            </Button>
-                            <Link to={`/problems/${p.id}`}>
-                                <LinkOutlined /> {p.id}
-                            </Link>
-                            <Typography.Text>
-                                - {p.title}
-                            </Typography.Text>
-                        </Space>
-                    </List.Item>
-                )}
+            <RelatedItemList
+                data={problems}
+                header="Problemas relacionados"
+                basePath="/problems"
+                onDelete={handleDeleteProblem}
             />
 
             <CommentSection
