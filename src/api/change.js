@@ -71,3 +71,11 @@ export async function getChangeRelatedProblems(idChange) {
     }
     return res;
 }
+
+export async function deleteChangeRelatedProblem(idChange, idProblem) {
+     const res = await httpClient.delete(`/change/${idChange}/problems/${idProblem}`);
+    if (!res) {
+        throw new Error("Failed to delete change related problem");
+    }
+    return res;
+}
