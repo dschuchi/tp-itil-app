@@ -63,3 +63,11 @@ export async function getChangeRelatedIncidents(idChange) {
     }
     return res;
 }
+
+export async function getChangeRelatedProblems(idChange) {
+     const res = await httpClient.get(`/change/${idChange}/problems`);
+    if (!res) {
+        throw new Error("Failed to fetch change related problems");
+    }
+    return res;
+}

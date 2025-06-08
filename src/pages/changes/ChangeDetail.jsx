@@ -2,7 +2,7 @@ import { Button, Form, List, Space, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ChangeForm from "./ChangeForm";
-import { getChange, getChangeComments, getChangeRelatedIncidents, postChangeComment, updateChange } from "../../api/change";
+import { getChange, getChangeComments, getChangeRelatedIncidents, getChangeRelatedProblems, postChangeComment, updateChange } from "../../api/change";
 import dayjs from 'dayjs'
 import CommentSection from "../../components/CommentSection";
 import { LinkOutlined } from "@ant-design/icons";
@@ -14,6 +14,7 @@ const ChangeDetail = () => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(true);
     const [incidents, setIncidents] = useState([])
+    const [problems, setProblems] = useState([])
 
     const loadChange = () => {
         getChange(id)
@@ -44,9 +45,16 @@ const ChangeDetail = () => {
             .catch(console.error)
     }
 
+    const loadProblems = () => {
+        getChangeRelatedProblems(id)
+            .then(setProblems)
+            .catch(console.error)
+    }
+
     useEffect(() => {
         loadChange()
         loadIncidents()
+        loadProblems()
     }, [id])
 
     if (loading) return <Spin />;
@@ -67,6 +75,21 @@ const ChangeDetail = () => {
                                 <LinkOutlined /> {i.id}
                             </Link>
                             - {i.title}
+                        </Space>
+                    </List.Item>
+                )}
+            />
+
+            <List
+                dataSource={problems}
+                header={<strong>Problemas relacionados</strong>}
+                renderItem={p => (
+                    <List.Item>
+                        <Space>
+                            <Link to={`/problems/${p.id}`}>
+                                <LinkOutlined /> {p.id}
+                            </Link>
+                            - {p.title}
                         </Space>
                     </List.Item>
                 )}
