@@ -1,18 +1,35 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Card, Statistic, Spin } from 'antd';
+import { Row, Col, Card, Statistic, Spin, Button, Segmented } from 'antd';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
 import { getIncidentsMetrics } from '../../api/metrics';
 
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+
+const segmentedOptions = [
+    {
+        label: '30 días',
+        value: 30
+    },
+    {
+        label: '7 días',
+        value: 7
+
+    },
+    {
+        label: '365 días',
+        value: 365
+
+    }]
 
 const IncidentCharts = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [days, setDays] = useState(30);
 
     useEffect(() => {
-        getIncidentsMetrics()
+        getIncidentsMetrics(days)
             .then(json => {
                 setData(json);
                 setLoading(false);
@@ -21,7 +38,7 @@ const IncidentCharts = () => {
                 console.error('Error al cargar los datos', err);
                 setLoading(false);
             });
-    }, []);
+    }, [days]);
 
     if (loading) return <Spin />;
     if (!data) return <div>Error al cargar los datos.</div>;
@@ -38,6 +55,12 @@ const IncidentCharts = () => {
 
     return (
         <div style={{ padding: 24 }}>
+            <Segmented
+                size='large'
+                options={segmentedOptions}
+                value={days}
+                onChange={setDays}
+            />
             <Row gutter={[16, 16]}>
                 <Col span={8}>
                     <Card>
