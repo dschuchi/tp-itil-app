@@ -39,3 +39,19 @@ export async function deleteChange(idChange) {
     }
     return res;
 }
+
+export async function getChangeComments(idChange) {
+    const res = await httpClient.get(`/change/${idChange}/comment`);
+    if (!res) {
+        throw new Error("Failed to fetch change comments");
+    }
+    return res;
+}
+
+export async function postChangeComment(idChange, comment) {
+    const res = await httpClient.post(`/change/${idChange}/comment?comment=${comment}`);
+    if (!res) {
+        throw new Error("Failed to post change comments");
+    }
+    return res;
+}
