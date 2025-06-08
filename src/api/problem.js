@@ -23,3 +23,19 @@ export async function getProblem(id) {
     }
     return res;
 }
+
+export async function getProblemComments(idProblem) {
+    const res = await httpClient.get(`/problem/${idProblem}/comments`);
+    if (!res) {
+        throw new Error("Failed to fetch problem comments");
+    }
+    return res;
+}
+
+export async function postProblemComment(idProblem, comment) {
+    const res = await httpClient.post(`/problem/${idProblem}/comments`, comment);
+    if (!res) {
+        throw new Error("Failed to post problem comments");
+    }
+    return res;
+}
