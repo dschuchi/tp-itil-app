@@ -49,7 +49,7 @@ export async function getChangeComments(idChange) {
 }
 
 export async function postChangeComment(idChange, comment) {
-    const res = await httpClient.post(`/change/${idChange}/comment?comment=${comment}`);
+    const res = await httpClient.post(`/change/${idChange}/comment`, comment);
     if (!res) {
         throw new Error("Failed to post change comments");
     }
