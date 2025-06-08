@@ -1,10 +1,17 @@
 import { Button, Empty, Flex, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getIncidents } from "../../api/incident";
+import { deleteIncident, getIncidents } from "../../api/incident";
 import { getUsers } from "../../api/account";
 
 const Incidents = () => {
+
+    const handleDelete = (idIncident) => {
+        deleteIncident(idIncident)
+            .then(loadIncidents)
+            .catch(console.error)
+    }
+
     const columns = [
         {
             title: 'ID',
@@ -40,9 +47,14 @@ const Incidents = () => {
             title: 'Acciones',
             key: 'actions',
             render: (text, record) => (
-                <Button onClick={() => navigate(`/incidents/${record.id}`)}>
-                    Ver Detalles
-                </Button>
+                <>
+                    <Button onClick={() => navigate(`/incidents/${record.id}`)}>
+                        Ver Detalles
+                    </Button>
+                    <Button onClick={() => handleDelete(record.id)}>
+                        Borrar
+                    </Button>
+                </>
             ),
         }
     ];
@@ -50,7 +62,7 @@ const Incidents = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const loadIncidents = () => {
         getUsers()
             .then(users => {
                 getIncidents()
@@ -71,6 +83,10 @@ const Incidents = () => {
                     });
             })
             .catch(console.error)
+    }
+
+    useEffect(() => {
+        loadIncidents()
     }, []);
 
     return (

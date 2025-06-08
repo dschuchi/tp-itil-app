@@ -41,9 +41,17 @@ export async function getComments(idIncident) {
 }
 
 export async function postComment(idIncident, comment) {
-     const res = await httpClient.post(`/incident/${idIncident}/comments`, comment);
+    const res = await httpClient.post(`/incident/${idIncident}/comments`, comment);
     if (!res) {
-        throw new Error("Failed to fetch incident comments");
+        throw new Error("Failed to post incident comments");
+    }
+    return res;
+}
+
+export async function deleteIncident(idIncident) {
+const res = await httpClient.delete(`/incident/${idIncident}`);
+    if (!res) {
+        throw new Error("Failed to delete incident");
     }
     return res;
 }
