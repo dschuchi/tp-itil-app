@@ -62,17 +62,25 @@ const IncidentCharts = () => {
                 onChange={setDays}
             />
             <Row gutter={[16, 16]}>
-                <Col span={8}>
+                <Col span={24} md={12}>
                     <Card>
                         <Statistic title="Día con más incidentes" value={data.dayWithMostIncidents} />
                     </Card>
                 </Col>
-                <Col span={8}>
+                <Col span={24} md={12}>
                     <Card>
                         <Statistic title="Hora con más incidentes" value={`${data.hourWithMostIncidents}:00`} />
                     </Card>
                 </Col>
-                <Col span={8}>
+            </Row>
+
+            <Row gutter={[16, 16]}>
+                <Col span={24} md={12}>
+                    <Card>
+                        <Statistic title="Item de configuración más afectado" value={data.mostAfectedItemName} />
+                    </Card>
+                </Col>
+                <Col span={24} md={12}>
                     <Card>
                         <Statistic title="Tiempo promedio de resolución" value={data.avgResolutionTime.split('.')[0]} />
                     </Card>
