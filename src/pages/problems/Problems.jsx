@@ -1,9 +1,15 @@
 import { Button, Empty, Flex, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProblems } from "../../api/problem";
+import { deleteProblem, getProblems } from "../../api/problem";
 
 const Problems = () => {
+    const handleDelete = (idProblem) => {
+        deleteProblem(idProblem)
+            .then(loadProblems)
+            .catch(console.error)
+    }
+
     const columns = [
         {
             title: 'ID',
@@ -29,9 +35,14 @@ const Problems = () => {
             title: 'Acciones',
             key: 'actions',
             render: (text, record) => (
-                <Button onClick={() => navigate(`/problems/${record.id}`)}>
-                    Ver Detalles
-                </Button>
+                <>
+                    <Button onClick={() => navigate(`/problems/${record.id}`)}>
+                        Ver Detalles
+                    </Button>
+                    <Button onClick={() => handleDelete(record.id)}>
+                        Borrar
+                    </Button>
+                </>
             ),
         }
     ];
@@ -39,7 +50,7 @@ const Problems = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const loadProblems = () => {
         getProblems()
             .then((res) => {
                 const formattedData = res.map((item) => ({
@@ -54,6 +65,10 @@ const Problems = () => {
             .catch((error) => {
                 console.error('Error fetching problems:', error);
             });
+    }
+
+    useEffect(() => {
+        loadProblems()
     }, [])
 
     return (

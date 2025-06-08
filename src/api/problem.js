@@ -39,3 +39,11 @@ export async function postProblemComment(idProblem, comment) {
     }
     return res;
 }
+
+export async function deleteProblem(idProblem) {
+    const res = await httpClient.delete(`/problem/${idProblem}`);
+    if (!res) {
+        throw new Error("Failed to delete problem");
+    }
+    return res;
+}
