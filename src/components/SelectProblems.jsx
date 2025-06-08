@@ -8,7 +8,7 @@ const SelectProblems = ({ value, onChange, disabled = false }) => {
     useEffect(() => {
         getProblems().then(data => {
             const formatted = data.map(p => ({
-                label: p.title,
+                label: `${p.id} - ${p.title}`,
                 value: p.id,
             }));
             setOptions(formatted);
