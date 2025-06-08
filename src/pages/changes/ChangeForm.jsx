@@ -3,6 +3,8 @@ import SelectConfigItem from '../../components/SelectConfigItem';
 import SelectAssignedUser from '../../components/SelectAssignedUser';
 import SelectProblems from '../../components/SelectProblems';
 import SelectIncidents from '../../components/SelectIncidents';
+import SelectClient from '../../components/SelectClient';
+import SelectStatus from '../../components/SelectStatus';
 
 const { TextArea } = Input;
 
@@ -23,12 +25,7 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
             )}
 
             <Form.Item label="Estado" name="state">
-                <Select disabled={disabled && !edit}>
-                    <Select.Option value="open">Abierto</Select.Option>
-                    <Select.Option value="in_progress">En Progreso</Select.Option>
-                    <Select.Option value="implemented">Implementado</Select.Option>
-                    <Select.Option value="closed">Cerrado</Select.Option>
-                </Select>
+                <SelectStatus disabled={disabled && !edit} />
             </Form.Item>
 
             <Form.Item label="Usuario Asignado" name="assignedUserId">
@@ -47,13 +44,7 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
                 <SelectConfigItem disabled={disabled} />
             </Form.Item>
 
-            <Form.Item label="Nombre del Cliente" name="clientName">
-                <Input disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item label="Email del Cliente" name="clientEmail">
-                <Input disabled={disabled} />
-            </Form.Item>
+            <SelectClient form={form} disabled={disabled} />
 
             <Form.Item label="Impacto" name="impact">
                 <Select disabled={disabled}>
