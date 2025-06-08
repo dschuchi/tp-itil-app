@@ -2,6 +2,7 @@ import { Button, Form, Input, Select } from 'antd';
 import SelectAssignedUser from '../../components/SelectAssignedUser';
 import SelectConfigItem from '../../components/SelectConfigItem';
 import SelectClient from '../../components/SelectClient';
+import SelectStatus from '../../components/SelectStatus';
 
 const { TextArea } = Input;
 
@@ -22,13 +23,7 @@ const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, i
             )}
 
             <Form.Item label="Estado" name="state">
-                <Select disabled={disabled && !edit}>
-                    <Select.Option value="open">Abierto</Select.Option>
-                    <Select.Option value="in_progress">En Progreso</Select.Option>
-                    <Select.Option value="resolved">Resuelto</Select.Option>
-                    <Select.Option value="closed">Cerrado</Select.Option>
-                    <Select.Option value="IMPLEMENTADO">Implementado</Select.Option>
-                </Select>
+                <SelectStatus disabled={disabled && !edit} />
             </Form.Item>
 
             <Form.Item label="Usuario Asignado" name="assignedUserId">
