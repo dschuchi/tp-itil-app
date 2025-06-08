@@ -55,3 +55,11 @@ export async function postChangeComment(idChange, comment) {
     }
     return res;
 }
+
+export async function getChangeRelatedIncidents(idChange) {
+     const res = await httpClient.get(`/change/${idChange}/incidents`);
+    if (!res) {
+        throw new Error("Failed to fetch change related incidents");
+    }
+    return res;
+}

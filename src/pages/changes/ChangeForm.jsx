@@ -69,6 +69,7 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
             <Form.Item
                 label="Incidentes Asociados"
                 name="incidentIds"
+                hidden={disabled}
             >
                 <SelectIncidents disabled={disabled} />
             </Form.Item>
@@ -76,6 +77,7 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
             <Form.Item
                 label="Problemas Asociados"
                 name="problemIds"
+                hidden={disabled}
             >
                 <SelectProblems disabled={disabled} />
             </Form.Item>
