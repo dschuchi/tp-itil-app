@@ -31,3 +31,11 @@ export async function updateChange(id, data) {
     }
     return res;
 }
+
+export async function deleteChange(idChange) {
+    const res = await httpClient.delete(`/change/${idChange}?changeId=${idChange}`);
+    if (!res) {
+        throw new Error("Failed to delete change");
+    }
+    return res;
+}

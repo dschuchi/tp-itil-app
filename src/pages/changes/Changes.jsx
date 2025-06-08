@@ -1,7 +1,7 @@
 import { Button, Empty, Flex, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getChanges } from "../../api/change";
+import { deleteChange, getChanges } from "../../api/change";
 
 const Changes = () => {
     const columns = [
@@ -51,10 +51,16 @@ const Changes = () => {
         }
     ];
 
+    const handleDelete = (id) => {
+        deleteChange(id)
+            .then(loadChanges)
+            .catch(console.error)
+    }
+
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const loadChanges = () => {
         getChanges()
             .then((res) => {
                 const formattedData = res.map((item) => ({
@@ -71,6 +77,10 @@ const Changes = () => {
             .catch((error) => {
                 console.error('Error fetching changes:', error);
             });
+    }
+
+    useEffect(() => {
+        loadChanges()
     }, [])
 
     return (
