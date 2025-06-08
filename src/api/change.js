@@ -64,6 +64,14 @@ export async function getChangeRelatedIncidents(idChange) {
     return res;
 }
 
+export async function deleteChangeRelatedIncidents(idChange, idIncident) {
+     const res = await httpClient.delete(`/change/${idChange}/incidents/${idIncident}`);
+    if (!res) {
+        throw new Error("Failed to delete change related incident");
+    }
+    return res;
+}
+
 export async function getChangeRelatedProblems(idChange) {
      const res = await httpClient.get(`/change/${idChange}/problems`);
     if (!res) {

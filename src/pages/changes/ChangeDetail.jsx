@@ -2,7 +2,7 @@ import { Button, Form, List, Space, Spin, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ChangeForm from "./ChangeForm";
-import { deleteChangeRelatedProblem, getChange, getChangeComments, getChangeRelatedIncidents, getChangeRelatedProblems, postChangeComment, updateChange } from "../../api/change";
+import { deleteChangeRelatedIncidents, deleteChangeRelatedProblem, getChange, getChangeComments, getChangeRelatedIncidents, getChangeRelatedProblems, postChangeComment, updateChange } from "../../api/change";
 import dayjs from 'dayjs'
 import CommentSection from "../../components/CommentSection";
 import { CloseCircleOutlined, LinkOutlined } from "@ant-design/icons";
@@ -57,6 +57,12 @@ const ChangeDetail = () => {
             .catch(console.error)
     }
 
+    const handleDeleteIncident = (idIncident) => {
+        deleteChangeRelatedIncidents(id, idIncident)
+            .then(loadIncidents)
+            .catch(console.error)
+    }
+
     useEffect(() => {
         loadChange()
         loadIncidents()
@@ -77,10 +83,15 @@ const ChangeDetail = () => {
                 renderItem={i => (
                     <List.Item>
                         <Space>
+                            <Button onClick={() => handleDeleteIncident(i.id)}>
+                                <CloseCircleOutlined />
+                            </Button>
                             <Link to={`/incidents/${i.id}`}>
                                 <LinkOutlined /> {i.id}
                             </Link>
-                            - {i.title}
+                            <Typography.Text>
+                                - {i.title}
+                            </Typography.Text>
                         </Space>
                     </List.Item>
                 )}
