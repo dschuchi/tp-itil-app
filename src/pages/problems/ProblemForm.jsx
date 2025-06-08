@@ -1,4 +1,4 @@
-import { Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import SelectConfigItem from '../../components/SelectConfigItem';
 import SelectAssignedUser from '../../components/SelectAssignedUser';
 import SelectIncidents from '../../components/SelectIncidents';
@@ -19,6 +19,19 @@ const ProblemForm = ({
             onFinish={onFinish}
             initialValues={initialValues}
         >
+
+            {submitButton && (
+                <Form.Item>
+                    <Button
+                        type="primary"
+                        htmlType='submit'
+                        disabled={disabled}
+                    >
+                        Guardar
+                    </Button>
+                </Form.Item>
+            )}
+
             <Form.Item
                 label="Título"
                 name="title"
@@ -82,18 +95,6 @@ const ProblemForm = ({
             >
                 <SelectIncidents disabled={disabled} />
             </Form.Item>
-
-            {submitButton && (
-                <Form.Item>
-                    <button
-                        type="submit"
-                        className="ant-btn ant-btn-primary"
-                        disabled={disabled}
-                    >
-                        Guardar Problema
-                    </button>
-                </Form.Item>
-            )}
         </Form>
     );
 };

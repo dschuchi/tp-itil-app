@@ -8,7 +8,7 @@ const SelectIncidents = ({ value, onChange, disabled = false }) => {
     useEffect(() => {
         getIncidents().then(data => {
             const formatted = data.map(i => ({
-                label: i.title,
+                label: `${i.id} - ${i.title}`,
                 value: i.id,
             }));
             setOptions(formatted);
