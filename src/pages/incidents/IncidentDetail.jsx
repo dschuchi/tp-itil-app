@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button, Form, Input, List, Spin } from 'antd';
 import IncidentForm from './IncidentForm';
-import { getComments, getIncident, postComment, updateIncident } from '../../api/incident';
+import { getIncidentComments, getIncident, postIncidentComment, updateIncident } from '../../api/incident';
 
 const IncidentDetail = () => {
     const { id } = useParams();
@@ -24,7 +24,7 @@ const IncidentDetail = () => {
     }
 
     const loadComments = () => {
-        getComments(id)
+        getIncidentComments(id)
             .then(res => {
                 setComments(res.comments)
             })
@@ -48,7 +48,7 @@ const IncidentDetail = () => {
     const handleSendComment = () => {
         if (!newComment.trim()) return;
 
-        postComment(id, newComment)
+        postIncidentComment(id, newComment)
             .then(() => {
                 loadComments();
                 setNewComment('');
