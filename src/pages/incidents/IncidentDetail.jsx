@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button, Form, Input, List, Spin } from 'antd';
 import IncidentForm from './IncidentForm';
 import { getIncidentComments, getIncident, postIncidentComment, updateIncident } from '../../api/incident';
+import { useAuth } from '../../context/AuthContext';
 
 const IncidentDetail = () => {
     const { id } = useParams();
@@ -12,6 +13,7 @@ const IncidentDetail = () => {
     const [edit, setEdit] = useState(false)
     const [comments, setComments] = useState([])
     const [newComment, setNewComment] = useState('');
+    const {user} = useAuth()
 
 
     const loadIncident = () => {
@@ -48,7 +50,7 @@ const IncidentDetail = () => {
     const handleSendComment = () => {
         if (!newComment.trim()) return;
 
-        postIncidentComment(id, newComment)
+        postIncidentComment(id, `${user.email}: ${newComment}`)
             .then(() => {
                 loadComments();
                 setNewComment('');
