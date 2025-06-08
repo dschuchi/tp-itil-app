@@ -6,6 +6,7 @@ import { deleteChangeRelatedIncidents, deleteChangeRelatedProblem, getChange, ge
 import dayjs from 'dayjs'
 import CommentSection from "../../components/CommentSection";
 import RelatedItemList from "../../components/RelatedItemList";
+import AddIncident from "../../components/AddIncident";
 
 const ChangeDetail = () => {
     const { id } = useParams();
@@ -83,6 +84,8 @@ const ChangeDetail = () => {
                 basePath="/incidents"
                 onDelete={handleDeleteIncident}
             />
+
+            <AddIncident id={id} loadIncidents={loadIncidents} />
 
             <RelatedItemList
                 data={problems}

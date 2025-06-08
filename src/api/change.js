@@ -57,7 +57,7 @@ export async function postChangeComment(idChange, comment) {
 }
 
 export async function getChangeRelatedIncidents(idChange) {
-     const res = await httpClient.get(`/change/${idChange}/incidents`);
+    const res = await httpClient.get(`/change/${idChange}/incidents`);
     if (!res) {
         throw new Error("Failed to fetch change related incidents");
     }
@@ -65,7 +65,7 @@ export async function getChangeRelatedIncidents(idChange) {
 }
 
 export async function deleteChangeRelatedIncidents(idChange, idIncident) {
-     const res = await httpClient.delete(`/change/${idChange}/incidents/${idIncident}`);
+    const res = await httpClient.delete(`/change/${idChange}/incidents/${idIncident}`);
     if (!res) {
         throw new Error("Failed to delete change related incident");
     }
@@ -73,7 +73,7 @@ export async function deleteChangeRelatedIncidents(idChange, idIncident) {
 }
 
 export async function getChangeRelatedProblems(idChange) {
-     const res = await httpClient.get(`/change/${idChange}/problems`);
+    const res = await httpClient.get(`/change/${idChange}/problems`);
     if (!res) {
         throw new Error("Failed to fetch change related problems");
     }
@@ -81,9 +81,17 @@ export async function getChangeRelatedProblems(idChange) {
 }
 
 export async function deleteChangeRelatedProblem(idChange, idProblem) {
-     const res = await httpClient.delete(`/change/${idChange}/problems/${idProblem}`);
+    const res = await httpClient.delete(`/change/${idChange}/problems/${idProblem}`);
     if (!res) {
         throw new Error("Failed to delete change related problem");
+    }
+    return res;
+}
+
+export async function postChangeRelatedIncident(idChange, idIncident) {
+    const res = await httpClient.patch(`/change/${idChange}/incidents/${idIncident}`);
+    if (!res) {
+        throw new Error("Failed to post related incident");
     }
     return res;
 }
