@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProblemForm from './ProblemForm';
-import { Spin } from 'antd';
-import { deleteProblemRelatedIncident, getProblem, getProblemComments, getProblemRelatedIncidents, postProblemComment } from '../../api/problem';
+import { Button, Form, Spin } from 'antd';
+import { deleteProblemRelatedIncident, getProblem, getProblemComments, getProblemRelatedIncidents, postProblemComment, updateProblem } from '../../api/problem';
 import CommentSection from '../../components/CommentSection';
 import RelatedItemList from '../../components/RelatedItemList';
 import AddIncident from '../../components/AddIncident';
@@ -12,12 +12,15 @@ const ProblemsDetail = () => {
     const [problem, setProblem] = useState(null);
     const [loading, setLoading] = useState(true);
     const [incidents, setIncidents] = useState([])
+    const [form] = Form.useForm();
+    const [edit, setEdit] = useState(false)
 
 
-    const loadProblems = () => {
+    const loadProblem = () => {
         getProblem(id).then(data => {
             setProblem(data);
             setLoading(false);
+            form.setFieldsValue(data)
         });
     }
 
@@ -33,8 +36,17 @@ const ProblemsDetail = () => {
             .catch(console.error)
     }
 
+    const handleSubmit = (values) => {
+        updateProblem(id, values)
+            .then(() => {
+                loadProblem()
+                setEdit(false)
+            })
+            .catch(console.log)
+    }
+
     useEffect(() => {
-        loadProblems()
+        loadProblem()
         loadIncidents()
     }, [id]);
 
@@ -43,18 +55,10 @@ const ProblemsDetail = () => {
     return (
         <div>
             <h1>Detalle del Problema</h1>
+            <Button onClick={() => setEdit(!edit)}>Editar</Button>
             <ProblemForm
-                disabled={true}
-                initialValues={{
-                    title: problem.title,
-                    description: problem.description,
-                    configurationItemId: problem.configurationItemId,
-                    assignedUserId: problem.assignedUserId,
-                    impact: problem.impact,
-                    priority: problem.priority,
-                    incidentIds: problem.incidentIds,
-                }}
-                submitButton={false}
+                form={form} disabled={true}
+                submitButton={edit} onFinish={handleSubmit} edit={edit}
             />
 
             <RelatedItemList

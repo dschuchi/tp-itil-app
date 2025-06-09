@@ -63,3 +63,11 @@ export async function deleteProblemRelatedIncident(idProblem, idIncident) {
     }
     return res;
 }
+
+export async function updateProblem(idProblem, data) {
+    const res = await httpClient.patch(`/problem/${idProblem}`, data);
+    if (!res) {
+        throw new Error("Failed to update problem");
+    }
+    return res;
+}
