@@ -24,3 +24,8 @@ export async function getUsers() {
   const res = await httpClient.get("/account/users");
   return res;
 }
+
+export async function getClients() {
+   const res = await httpClient.get("/account/clients");
+  return res;
+}

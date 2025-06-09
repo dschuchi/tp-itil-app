@@ -1,27 +1,38 @@
 import { Select, Input, Form } from "antd";
-
-const clients = [
-    { id: 1, name: "Juan Pérez", email: "juan@example.com" },
-    { id: 2, name: "Ana Gómez", email: "ana@example.com" },
-    { id: 3, name: "Carlos Ruiz", email: "carlos@example.com" },
-];
+import { useEffect, useState } from "react";
+import { getClients } from "../api/account";
 
 const SelectClient = ({ form, value, placeholder = 'Seleccione el Config Item', disabled, ...rest }) => {
-    const options = clients.map((client) => ({
-        label: client.name,
-        value: client.id,
-    }));
+    const [options, setOptions] = useState([]);
+    const [clients, setClients] = useState([]);
 
     const handleChange = (selectedId) => {
         const selected = clients.find((c) => c.id === selectedId);
+        console.log(selected)
         if (selected) {
             form.setFieldsValue({
-                [name]: selected.id,
                 clientName: selected.name,
                 clientEmail: selected.email,
             });
         }
     };
+
+    const loadClients = () => {
+        getClients()
+            .then(data => {
+                const formattedOptions = data.map((user) => ({
+                    label: `${user.id} - ${user.email} - ${user.name}`,
+                    value: user.id,
+                }));
+                setOptions(formattedOptions);
+                setClients(data)
+            })
+            .catch(console.error)
+    }
+
+    useEffect(() => {
+        loadClients()
+    }, [])
 
     return (
         <>
