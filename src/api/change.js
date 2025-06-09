@@ -95,3 +95,11 @@ export async function postChangeRelatedIncident(idChange, idIncident) {
     }
     return res;
 }
+
+export async function postChangeRelatedProblem(idChange, idProblem) {
+    const res = await httpClient.patch(`/change/${idChange}/problems/${idProblem}`);
+    if (!res) {
+        throw new Error("Failed to post related problems");
+    }
+    return res;
+}

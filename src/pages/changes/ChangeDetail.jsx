@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import CommentSection from "../../components/CommentSection";
 import RelatedItemList from "../../components/RelatedItemList";
 import AddIncident from "../../components/AddIncident";
+import AddProblem from "../../components/AddProblem";
 
 const ChangeDetail = () => {
     const { id } = useParams();
@@ -93,6 +94,8 @@ const ChangeDetail = () => {
                 basePath="/problems"
                 onDelete={handleDeleteProblem}
             />
+
+            <AddProblem id={id} loadProblems={loadProblems} />
 
             <CommentSection
                 resourceId={id}
