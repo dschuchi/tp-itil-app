@@ -53,6 +53,25 @@ const IncidentCharts = () => {
         incidents: count,
     }));
 
+    function formatCustomTime(timeStr) {
+        let dias = 0;
+        let timePart = timeStr;
+
+        if (timeStr.includes('.')) {
+            const [dayPart, rest] = timeStr.split('.');
+            dias = parseInt(dayPart, 10);
+            timePart = rest;
+        }
+
+        const [hours, minutes] = timePart.split(':');
+
+        let result = '';
+        if (dias > 0) result += `${dias}d `;
+        result += `${parseInt(hours, 10)}h ${parseInt(minutes, 10)}m`;
+
+        return result;
+    }
+
     return (
         <div style={{ padding: 24 }}>
             <Segmented
@@ -82,7 +101,7 @@ const IncidentCharts = () => {
                 </Col>
                 <Col span={24} md={12}>
                     <Card>
-                        <Statistic title="Tiempo promedio de resolución" value={data.avgResolutionTime.split('.')[0]} />
+                        <Statistic title="Tiempo promedio de resolución" value={formatCustomTime(data.avgResolutionTime)} />
                     </Card>
                 </Col>
             </Row>
