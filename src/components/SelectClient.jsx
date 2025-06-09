@@ -8,7 +8,6 @@ const SelectClient = ({ form, value, placeholder = 'Seleccione el Config Item', 
 
     const handleChange = (selectedId) => {
         const selected = clients.find((c) => c.id === selectedId);
-        console.log(selected)
         if (selected) {
             form.setFieldsValue({
                 clientName: selected.name,
