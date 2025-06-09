@@ -2,13 +2,17 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProblemForm from './ProblemForm';
 import { Spin } from 'antd';
-import { getProblem, getProblemComments, postProblemComment } from '../../api/problem';
+import { deleteProblemRelatedIncident, getProblem, getProblemComments, getProblemRelatedIncidents, postProblemComment } from '../../api/problem';
 import CommentSection from '../../components/CommentSection';
+import RelatedItemList from '../../components/RelatedItemList';
+import AddIncident from '../../components/AddIncident';
 
 const ProblemsDetail = () => {
     const { id } = useParams();
     const [problem, setProblem] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [incidents, setIncidents] = useState([])
+
 
     const loadProblems = () => {
         getProblem(id).then(data => {
@@ -17,8 +21,21 @@ const ProblemsDetail = () => {
         });
     }
 
+    const handleDeleteIncident = (idIncident) => {
+        deleteProblemRelatedIncident(id, idIncident)
+            .then(loadIncidents)
+            .catch(console.error)
+    }
+
+    const loadIncidents = () => {
+        getProblemRelatedIncidents(id)
+            .then(setIncidents)
+            .catch(console.error)
+    }
+
     useEffect(() => {
         loadProblems()
+        loadIncidents()
     }, [id]);
 
     if (loading) return <Spin tip="Cargando problema..." />;
@@ -39,6 +56,14 @@ const ProblemsDetail = () => {
                 }}
                 submitButton={false}
             />
+
+            <RelatedItemList
+                data={incidents}
+                header='Incidentes relacionados'
+                onDelete={handleDeleteIncident}
+            />
+
+            <AddIncident id={id} loadIncidents={loadIncidents} />
 
             <CommentSection
                 resourceId={id}

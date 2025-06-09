@@ -47,3 +47,19 @@ export async function deleteProblem(idProblem) {
     }
     return res;
 }
+
+export async function getProblemRelatedIncidents(idProblem) {
+    const res = await httpClient.get(`/problem/${idProblem}/incidents`);
+    if (!res) {
+        throw new Error("Failed to fetch problem incidents");
+    }
+    return res;
+}
+
+export async function deleteProblemRelatedIncident(idProblem, idIncident) {
+    const res = await httpClient.delete(`/problem/${idProblem}/incidents/${idIncident}`);
+    if (!res) {
+        throw new Error("Failed to delete problem incidents");
+    }
+    return res;
+}

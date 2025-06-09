@@ -92,6 +92,7 @@ const ProblemForm = ({
                 label="Incidentes Relacionados"
                 name="incidentIds"
                 rules={[{ required: true, message: 'Seleccione al menos un incidente' }]}
+                hidden={disabled}
             >
                 <SelectIncidents disabled={disabled} />
             </Form.Item>
