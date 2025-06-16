@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProblemForm from './ProblemForm';
 import { Button, Form, Spin } from 'antd';
-import { deleteProblemRelatedIncident, getProblem, getProblemComments, getProblemRelatedIncidents, postProblemComment, updateProblem } from '../../api/problem';
+import { deleteProblemRelatedIncident, getProblem, getProblemComments, getProblemRelatedIncidents, postProblemComment, postProblemRelatedIncident, updateProblem } from '../../api/problem';
 import CommentSection from '../../components/CommentSection';
 import RelatedItemList from '../../components/RelatedItemList';
 import AddIncident from '../../components/AddIncident';
@@ -67,7 +67,7 @@ const ProblemsDetail = () => {
                 onDelete={handleDeleteIncident}
             />
 
-            <AddIncident id={id} loadIncidents={loadIncidents} />
+            <AddIncident id={id} loadIncidents={loadIncidents} add={postProblemRelatedIncident} />
 
             <CommentSection
                 resourceId={id}

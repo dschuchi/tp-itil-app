@@ -2,7 +2,7 @@ import { Button, Form, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ChangeForm from "./ChangeForm";
-import { deleteChangeRelatedIncidents, deleteChangeRelatedProblem, getChange, getChangeComments, getChangeRelatedIncidents, getChangeRelatedProblems, postChangeComment, updateChange } from "../../api/change";
+import { deleteChangeRelatedIncidents, deleteChangeRelatedProblem, getChange, getChangeComments, getChangeRelatedIncidents, getChangeRelatedProblems, postChangeComment, postChangeRelatedIncident, updateChange } from "../../api/change";
 import dayjs from 'dayjs'
 import CommentSection from "../../components/CommentSection";
 import RelatedItemList from "../../components/RelatedItemList";
@@ -86,7 +86,7 @@ const ChangeDetail = () => {
                 onDelete={handleDeleteIncident}
             />
 
-            <AddIncident id={id} loadIncidents={loadIncidents} />
+            <AddIncident id={id} loadIncidents={loadIncidents} add={postChangeRelatedIncident} />
 
             <RelatedItemList
                 data={problems}

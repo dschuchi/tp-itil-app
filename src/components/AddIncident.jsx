@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getIncidents } from "../api/incident";
 import { postProblemRelatedIncident } from "../api/problem";
 
-const AddIncident = ({ id, loadIncidents }) => {
+const AddIncident = ({ id, loadIncidents, add }) => {
     const [options, setOptions] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
 
@@ -19,7 +19,7 @@ const AddIncident = ({ id, loadIncidents }) => {
 
     const handleAdd = () => {
         if (!selectedId) return;
-        postProblemRelatedIncident(id, selectedId)
+        add(id, selectedId)
             .then(() => {
                 setSelectedId(null)
                 loadIncidents()
