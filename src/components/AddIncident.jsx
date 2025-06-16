@@ -1,21 +1,27 @@
 import { Button, Select } from "antd";
 import { useEffect, useState } from "react";
 import { getIncidents } from "../api/incident";
-import { postProblemRelatedIncident } from "../api/problem";
 
-const AddIncident = ({ id, loadIncidents, add }) => {
+const AddIncident = ({ id, loadIncidents, add, incidents }) => {
     const [options, setOptions] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
 
-    useEffect(() => {
+    const loadOptions = () => {
+        const incidentsToFilter = new Set(incidents.map(i => i.id));
         getIncidents().then(data => {
-            const formatted = data.map(i => ({
-                label: `${i.id} - ${i.title}`,
-                value: i.id,
-            }));
+            const formatted = data
+                .filter(i => !incidentsToFilter.has(i.id))
+                .map(i => ({
+                    label: `${i.id} - ${i.title}`,
+                    value: i.id,
+                }));
             setOptions(formatted);
         });
-    }, []);
+    }
+
+    useEffect(() => {
+        loadOptions()
+    }, [incidents]);
 
     const handleAdd = () => {
         if (!selectedId) return;

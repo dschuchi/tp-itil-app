@@ -8,6 +8,7 @@ import CommentSection from "../../components/CommentSection";
 import RelatedItemList from "../../components/RelatedItemList";
 import AddIncident from "../../components/AddIncident";
 import AddProblem from "../../components/AddProblem";
+import { getIncidents } from "../../api/incident";
 
 const ChangeDetail = () => {
     const { id } = useParams();
@@ -86,7 +87,7 @@ const ChangeDetail = () => {
                 onDelete={handleDeleteIncident}
             />
 
-            <AddIncident id={id} loadIncidents={loadIncidents} add={postChangeRelatedIncident} />
+            <AddIncident id={id} loadIncidents={loadIncidents} add={postChangeRelatedIncident} incidents={incidents} />
 
             <RelatedItemList
                 data={problems}

@@ -67,7 +67,7 @@ const ProblemsDetail = () => {
                 onDelete={handleDeleteIncident}
             />
 
-            <AddIncident id={id} loadIncidents={loadIncidents} add={postProblemRelatedIncident} />
+            <AddIncident id={id} loadIncidents={loadIncidents} add={postProblemRelatedIncident} incidents={incidents} />
 
             <CommentSection
                 resourceId={id}
