@@ -27,7 +27,7 @@ const IncidentsNew = () => {
     };
 
     return (
-      <IncidentForm form={form} onFinish={handleSubmit} />
+      <IncidentForm form={form} onFinish={handleSubmit} creating={true} />
     );
 };
 
