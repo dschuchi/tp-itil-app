@@ -27,6 +27,14 @@ const ConfigurationForm = ({ form, onFinish, disabled = false, submitButton = tr
                 <TextArea disabled={disabled} placeholder="Ingrese la descripción" rows={4} />
             </Form.Item>
 
+            <Form.Item
+                label="Versión"
+                name="versionId"
+                hidden={!disabled}
+            >
+                <Input disabled={disabled} />
+            </Form.Item>
+
             {submitButton && (
                 <Form.Item>
                     <Button disabled={disabled} type="primary" htmlType="submit">
