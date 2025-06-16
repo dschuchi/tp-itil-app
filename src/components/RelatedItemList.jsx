@@ -17,7 +17,7 @@ const RelatedItemList = ({ data, header, basePath, onDelete, deleteHidden = fals
                         <LinkOutlined /> {item.id}
                     </Link>
                     <Typography.Text>
-                        - {item.title} <strong>({item.state})</strong>
+                        - {item.title} {item.state && <strong>({item.state})</strong>}
                     </Typography.Text>
                 </Space>
             </List.Item>
