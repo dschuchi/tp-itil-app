@@ -3,6 +3,7 @@ import { Empty, Form, List } from "antd";
 import { getConfigItem, getConfigItemIncidents } from "../../api/configuration";
 import { useEffect, useState } from "react";
 import ConfigurationForm from "./ConfigurationForm";
+import RelatedItemList from "../../components/RelatedItemList";
 
 const ConfigurationsDetail = () => {
     const { id } = useParams();
@@ -19,7 +20,7 @@ const ConfigurationsDetail = () => {
                 const parsed = Object.values(JSON.parse(data.versionHistory)).map((item, i) => {
                     const [tituloPart, descripcionPart] = item.split("|");
                     return {
-                        id: i+1,
+                        id: i + 1,
                         titulo: tituloPart.replace("Titulo:", "").trim(),
                         descripcion: descripcionPart.replace("Descripcion:", "").trim(),
                     };
@@ -43,15 +44,11 @@ const ConfigurationsDetail = () => {
         <div>
             <ConfigurationForm form={form} disabled={true} submitButton={false} />
 
-            <h3>Incidentes relacionados</h3>
-            <List
-                dataSource={incidents}
-                locale={<Empty />}
-                renderItem={incident => (
-                    <List.Item>
-                        {incident.id} - {incident.title}
-                    </List.Item>
-                )}
+            <RelatedItemList
+                data={incidents}
+                header='Incidentes relacionados'
+                basePath='/incidents'
+                deleteHidden={true}
             />
 
 
