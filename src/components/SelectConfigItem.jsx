@@ -9,7 +9,7 @@ const SelectConfigItem = ({ value, onChange, placeholder = 'Seleccione el Config
         getConfigItems()
             .then(data => {
                 const formattedOptions = data.map(item => ({
-                    label: `${item.id} - ${item.description}`,
+                    label: `${item.id} - ${item.title}`,
                     value: item.id,
                 }));
                 setOptions(formattedOptions);
