@@ -54,6 +54,9 @@ const ConfigurationsDetail = () => {
 
             <h3>Historial de cambios</h3>
             <List
+                pagination={{
+                    pageSize: 5
+                }}
                 dataSource={history}
                 locale={<Empty />}
                 renderItem={h => (
