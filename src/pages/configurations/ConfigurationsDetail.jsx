@@ -61,7 +61,9 @@ const ConfigurationsDetail = () => {
                 locale={<Empty />}
                 renderItem={h => (
                     <List.Item>
-                        {h.id} - Titulo: {h.titulo} - Descripción: {h.descripcion}
+                        <div style={{ whiteSpace: 'pre-wrap' }}>
+                            {h.id} - Titulo: {h.titulo} - Descripción: {h.descripcion}
+                        </div>
                     </List.Item>
                 )}
             />
