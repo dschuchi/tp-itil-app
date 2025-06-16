@@ -71,3 +71,11 @@ export async function updateProblem(idProblem, data) {
     }
     return res;
 }
+
+export async function postProblemRelatedIncident(idProblem, idIncident) {
+    const res = await httpClient.patch(`/problem/${idProblem}/incidents/${idIncident}`);
+    if (!res) {
+        throw new Error("Failed to post related incidents");
+    }
+    return res;
+}

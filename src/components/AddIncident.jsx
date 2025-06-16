@@ -1,7 +1,7 @@
 import { Button, Select } from "antd";
 import { useEffect, useState } from "react";
 import { getIncidents } from "../api/incident";
-import { postChangeRelatedIncident } from "../api/change";
+import { postProblemRelatedIncident } from "../api/problem";
 
 const AddIncident = ({ id, loadIncidents }) => {
     const [options, setOptions] = useState([]);
@@ -19,7 +19,7 @@ const AddIncident = ({ id, loadIncidents }) => {
 
     const handleAdd = () => {
         if (!selectedId) return;
-        postChangeRelatedIncident(id, selectedId)
+        postProblemRelatedIncident(id, selectedId)
             .then(() => {
                 setSelectedId(null)
                 loadIncidents()
