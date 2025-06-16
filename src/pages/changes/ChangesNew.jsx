@@ -23,7 +23,7 @@ const ChangesNew = () => {
     return (
         <div>
             <h1>Crear Petición de Cambio</h1>
-            <ChangeForm form={form} onFinish={handleSubmit} />
+            <ChangeForm form={form} onFinish={handleSubmit} creating={true} />
         </div>
     );
 };

@@ -8,7 +8,7 @@ import SelectStatus from '../../components/SelectStatus';
 
 const { TextArea } = Input;
 
-const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, initialValues = {}, edit = false }) => {
+const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, initialValues = {}, edit = false, creating = false }) => {
     return (
         <Form
             form={form}
@@ -24,7 +24,7 @@ const ChangeForm = ({ form, onFinish, disabled = false, submitButton = true, ini
                 </Form.Item>
             )}
 
-            <Form.Item label="Estado" name="state">
+            <Form.Item hidden={creating} label="Estado" name="state">
                 <SelectStatus disabled={disabled && !edit} />
             </Form.Item>
 
