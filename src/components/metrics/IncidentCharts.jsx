@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Card, Statistic, Spin, Button, Segmented } from 'antd';
+import { Row, Col, Card, Statistic, Spin, Segmented } from 'antd';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
@@ -53,23 +53,14 @@ const IncidentCharts = () => {
         incidents: count,
     }));
 
-    function formatCustomTime(timeStr) {
-        let dias = 0;
-        let timePart = timeStr;
+    const formatAvgTime = (avgTime) => {
+        const totalMinutes = Math.round(avgTime * 60);
+        const days = Math.floor(totalMinutes / (24 * 60));
+        const remMinutesAfterDays = totalMinutes % (24 * 60);
+        const hoursPart = Math.floor(remMinutesAfterDays / 60);
+        const minutesPart = remMinutesAfterDays % 60;
 
-        if (timeStr.includes('.')) {
-            const [dayPart, rest] = timeStr.split('.');
-            dias = parseInt(dayPart, 10);
-            timePart = rest;
-        }
-
-        const [hours, minutes] = timePart.split(':');
-
-        let result = '';
-        if (dias > 0) result += `${dias}d `;
-        result += `${parseInt(hours, 10)}h ${parseInt(minutes, 10)}m`;
-
-        return result;
+        return `${days}d ${hoursPart}h ${minutesPart}m`;
     }
 
     return (
@@ -101,7 +92,7 @@ const IncidentCharts = () => {
                 </Col>
                 <Col span={24} md={12}>
                     <Card>
-                        <Statistic title="Tiempo promedio de resolución" value={formatCustomTime(data.avgResolutionTime)} />
+                        <Statistic title="Tiempo promedio de resolución" value={formatAvgTime(data.avgResolutionTime)} />
                     </Card>
                 </Col>
             </Row>
