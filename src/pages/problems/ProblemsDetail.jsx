@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProblemForm from './ProblemForm';
-import { Button, Form, Spin } from 'antd';
+import { Button, Flex, Form, Spin } from 'antd';
 import { deleteProblemRelatedIncident, getProblem, getProblemComments, getProblemRelatedIncidents, postProblemComment, postProblemRelatedIncident, updateProblem } from '../../api/problem';
 import CommentSection from '../../components/CommentSection';
 import RelatedItemList from '../../components/RelatedItemList';
@@ -57,8 +57,11 @@ const ProblemsDetail = () => {
 
     return (
         <div>
-            <h1>Detalle del Problema</h1>
-            <Button hidden={!hasCreatePermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
+            <Flex justify='space-between'>
+                <h1>Detalle del Problema</h1>
+                <Button hidden={!hasCreatePermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
+            </Flex>
+
             <ProblemForm
                 form={form} disabled={true}
                 submitButton={edit} onFinish={handleSubmit} edit={edit}

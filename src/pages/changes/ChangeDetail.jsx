@@ -1,4 +1,4 @@
-import { Button, Form, Spin } from "antd";
+import { Button, Flex, Form, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ChangeForm from "./ChangeForm";
@@ -78,8 +78,11 @@ const ChangeDetail = () => {
 
     return (
         <>
-            <h1>Detalle de petición de cambio</h1>
-            <Button hidden={!hasEditingPermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
+            <Flex justify="space-between">
+                <h1>Detalle de petición de cambio</h1>
+                <Button hidden={!hasEditingPermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
+            </Flex>
+
             <ChangeForm form={form} disabled={true} submitButton={edit} onFinish={handleSubmit} edit={edit} />
 
             <RelatedItemList

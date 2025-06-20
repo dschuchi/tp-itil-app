@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Button, Form, Spin } from 'antd';
+import { Button, Flex, Form, Spin } from 'antd';
 import IncidentForm from './IncidentForm';
 import { getIncidentComments, getIncident, postIncidentComment, updateIncident } from '../../api/incident';
 import CommentSection from '../../components/CommentSection';
@@ -41,8 +41,11 @@ const IncidentDetail = () => {
 
     return (
         <div>
-            <h1>Detalle del Incidente</h1>
-            <Button hidden={!hasEditingPermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
+            <Flex justify='space-between'>
+                <h1>Detalle del Incidente</h1>
+                <Button hidden={!hasEditingPermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
+            </Flex>
+
             <IncidentForm
                 form={form}
                 disabled={true}
