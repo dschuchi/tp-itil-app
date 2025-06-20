@@ -2,6 +2,8 @@ import { Button, Empty, Flex, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteProblem, getProblems } from "../../api/problem";
+import { useAuth } from "../../context/AuthContext";
+import { hasCreatePermission, hasEditingPermission } from "../../service/permissionService";
 
 const Problems = () => {
     const handleDelete = (idProblem) => {
@@ -39,7 +41,7 @@ const Problems = () => {
                     <Button onClick={() => navigate(`/problems/${record.id}`)}>
                         Ver Detalles
                     </Button>
-                    <Button onClick={() => handleDelete(record.id)}>
+                    <Button hidden={!hasEditingPermission(user)} onClick={() => handleDelete(record.id)}>
                         Borrar
                     </Button>
                 </>
@@ -49,6 +51,7 @@ const Problems = () => {
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
+    const { user } = useAuth()
 
     const loadProblems = () => {
         getProblems()
@@ -75,7 +78,7 @@ const Problems = () => {
         <div>
             <Flex justify='space-between' align='center'>
                 <Typography.Title>Problemas</Typography.Title>
-                <Button onClick={() => navigate('/problems/new')}>
+                <Button hidden={!hasCreatePermission(user)} onClick={() => navigate('/problems/new')}>
                     + Agregar
                 </Button>
             </Flex>

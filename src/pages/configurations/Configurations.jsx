@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteConfigItem, getConfigItems } from '../../api/configuration';
 import { getUsers } from '../../api/account';
+import { hasCreatePermission, hasEditingPermission } from '../../service/permissionService';
+import { useAuth } from '../../context/AuthContext';
 
 const Configurations = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
+    const { user } = useAuth()
 
     const handleDelete = (id) => {
         deleteConfigItem(id)
@@ -70,7 +73,7 @@ const Configurations = () => {
                     <Button onClick={() => navigate(`/configurations/${record.id}`)}>
                         Ver Detalles
                     </Button>
-                    <Button onClick={() => handleDelete(record.id)}>
+                    <Button hidden={!hasEditingPermission(user)} onClick={() => handleDelete(record.id)}>
                         Borrar
                     </Button>
                 </>
@@ -82,7 +85,7 @@ const Configurations = () => {
         <div>
             <Flex justify='space-between' align='center'>
                 <Typography.Title>Configuración</Typography.Title>
-                <Button onClick={() => navigate('/configurations/new')}>
+                <Button hidden={!hasCreatePermission(user)} onClick={() => navigate('/configurations/new')}>
                     + Agregar
                 </Button>
             </Flex>

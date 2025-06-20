@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteIncident, getIncidents } from "../../api/incident";
 import { getUsers } from "../../api/account";
+import { useAuth } from "../../context/AuthContext";
+import { hasCreatePermission, hasEditingPermission } from "../../service/permissionService";
 
 const Incidents = () => {
 
@@ -51,7 +53,7 @@ const Incidents = () => {
                     <Button onClick={() => navigate(`/incidents/${record.id}`)}>
                         Ver Detalles
                     </Button>
-                    <Button onClick={() => handleDelete(record.id)}>
+                    <Button hidden={!hasEditingPermission(user)} onClick={() => handleDelete(record.id)}>
                         Borrar
                     </Button>
                 </>
@@ -61,6 +63,7 @@ const Incidents = () => {
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
+    const { user } = useAuth()
 
     const loadIncidents = () => {
         getUsers()
@@ -93,7 +96,7 @@ const Incidents = () => {
         <div>
             <Flex justify='space-between' align='center'>
                 <Typography.Title>Incidentes</Typography.Title>
-                <Button onClick={() => navigate('/incidents/new')}>
+                <Button hidden={!hasCreatePermission(user)} onClick={() => navigate('/incidents/new')}>
                     + Agregar
                 </Button>
             </Flex>

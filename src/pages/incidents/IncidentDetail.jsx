@@ -4,6 +4,8 @@ import { Button, Form, Spin } from 'antd';
 import IncidentForm from './IncidentForm';
 import { getIncidentComments, getIncident, postIncidentComment, updateIncident } from '../../api/incident';
 import CommentSection from '../../components/CommentSection';
+import { useAuth } from '../../context/AuthContext';
+import { hasEditingPermission } from '../../service/permissionService';
 
 const IncidentDetail = () => {
     const { id } = useParams();
@@ -11,6 +13,7 @@ const IncidentDetail = () => {
     const [loading, setLoading] = useState(true);
     const [form] = Form.useForm();
     const [edit, setEdit] = useState(false)
+    const { user } = useAuth()
 
     const loadIncident = () => {
         getIncident(id)
@@ -39,7 +42,7 @@ const IncidentDetail = () => {
     return (
         <div>
             <h1>Detalle del Incidente</h1>
-            <Button onClick={() => setEdit(!edit)}>Editar</Button>
+            <Button hidden={!hasEditingPermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
             <IncidentForm
                 form={form}
                 disabled={true}

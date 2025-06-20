@@ -6,6 +6,8 @@ import { deleteProblemRelatedIncident, getProblem, getProblemComments, getProble
 import CommentSection from '../../components/CommentSection';
 import RelatedItemList from '../../components/RelatedItemList';
 import AddIncident from '../../components/AddIncident';
+import { useAuth } from '../../context/AuthContext';
+import { hasCreatePermission } from '../../service/permissionService';
 
 const ProblemsDetail = () => {
     const { id } = useParams();
@@ -14,6 +16,7 @@ const ProblemsDetail = () => {
     const [incidents, setIncidents] = useState([])
     const [form] = Form.useForm();
     const [edit, setEdit] = useState(false)
+    const { user } = useAuth()
 
 
     const loadProblem = () => {
@@ -55,7 +58,7 @@ const ProblemsDetail = () => {
     return (
         <div>
             <h1>Detalle del Problema</h1>
-            <Button onClick={() => setEdit(!edit)}>Editar</Button>
+            <Button hidden={!hasCreatePermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
             <ProblemForm
                 form={form} disabled={true}
                 submitButton={edit} onFinish={handleSubmit} edit={edit}

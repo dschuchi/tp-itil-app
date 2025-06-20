@@ -8,6 +8,8 @@ import CommentSection from "../../components/CommentSection";
 import RelatedItemList from "../../components/RelatedItemList";
 import AddIncident from "../../components/AddIncident";
 import AddProblem from "../../components/AddProblem";
+import { useAuth } from "../../context/AuthContext";
+import { hasEditingPermission } from "../../service/permissionService";
 
 const ChangeDetail = () => {
     const { id } = useParams();
@@ -17,6 +19,7 @@ const ChangeDetail = () => {
     const [loading, setLoading] = useState(true);
     const [incidents, setIncidents] = useState([])
     const [problems, setProblems] = useState([])
+    const { user } = useAuth()
 
     const loadChange = () => {
         getChange(id)
@@ -76,7 +79,7 @@ const ChangeDetail = () => {
     return (
         <>
             <h1>Detalle de petición de cambio</h1>
-            <Button onClick={() => setEdit(!edit)}>Editar</Button>
+            <Button hidden={!hasEditingPermission(user)} onClick={() => setEdit(!edit)}>Editar</Button>
             <ChangeForm form={form} disabled={true} submitButton={edit} onFinish={handleSubmit} edit={edit} />
 
             <RelatedItemList
