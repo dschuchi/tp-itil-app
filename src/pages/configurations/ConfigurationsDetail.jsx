@@ -42,6 +42,7 @@ const ConfigurationsDetail = () => {
 
     return (
         <div>
+            <h1>Detalle del Item de Configuración</h1>
             <ConfigurationForm form={form} disabled={true} submitButton={false} />
 
             <RelatedItemList
