@@ -1,7 +1,6 @@
 import { Button, Form, Input, Select } from 'antd';
 import SelectAssignedUser from '../../components/SelectAssignedUser';
 import SelectConfigItem from '../../components/SelectConfigItem';
-import SelectClient from '../../components/SelectClient';
 import SelectStatus from '../../components/SelectStatus';
 
 const { TextArea } = Input;
@@ -45,8 +44,6 @@ const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, i
             <Form.Item label="Causa Raíz" name="rootCause">
                 <Input disabled={disabled} />
             </Form.Item>
-
-            <SelectClient form={form} disabled={disabled} />
 
             <Form.Item label="Impacto" name="impact">
                 <Select disabled={disabled}>

@@ -1,4 +1,5 @@
 import { Button, Form, Input } from "antd"
+import SelectClient from "../../components/SelectClient";
 
 const { TextArea } = Input;
 
@@ -26,6 +27,8 @@ const ConfigurationForm = ({ form, onFinish, disabled = false, submitButton = tr
             >
                 <TextArea disabled={disabled} placeholder="Ingrese la descripción" rows={4} />
             </Form.Item>
+
+            <SelectClient form={form} disabled={disabled} />
 
             <Form.Item
                 label="Versión"

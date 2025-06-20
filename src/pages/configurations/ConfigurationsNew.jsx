@@ -16,7 +16,9 @@ const ConfigurationsNew = () => {
                 description: values.description,
                 userId: user.id,
                 versionId: "0",
-                versionHistory: "0"
+                versionHistory: "0",
+                clientName: values.clientName,
+                clientEmail: values.clientEmail
             }
         )
             .then(() => {
