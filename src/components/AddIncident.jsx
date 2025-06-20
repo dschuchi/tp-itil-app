@@ -1,10 +1,13 @@
 import { Button, Select } from "antd";
 import { useEffect, useState } from "react";
 import { getIncidents } from "../api/incident";
+import { useAuth } from "../context/AuthContext";
+import { hasEditingPermission } from "../service/permissionService";
 
 const AddIncident = ({ id, loadIncidents, add, incidents }) => {
     const [options, setOptions] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
+    const { user } = useAuth()
 
     const loadOptions = () => {
         const incidentsToFilter = new Set(incidents.map(i => i.id));
@@ -36,13 +39,14 @@ const AddIncident = ({ id, loadIncidents, add, incidents }) => {
     return (
         <>
             <Select
+                disabled={!hasEditingPermission(user)}
                 style={{ width: 300 }}
                 options={options}
                 value={selectedId}
                 onChange={setSelectedId}
                 placeholder="Seleccione un incidente"
             />
-            <Button onClick={handleAdd} disabled={!selectedId}>
+            <Button onClick={handleAdd} disabled={!selectedId || !hasEditingPermission(user)}>
                 +
             </Button>
         </>
