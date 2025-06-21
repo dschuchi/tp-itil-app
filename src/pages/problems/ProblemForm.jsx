@@ -55,13 +55,6 @@ const ProblemForm = ({
             </Form.Item>
 
             <Form.Item
-                label="Config Item"
-                name="configurationItemId"
-            >
-                <SelectConfigItem disabled={disabled} />
-            </Form.Item>
-
-            <Form.Item
                 label="Impacto"
                 name="impact"
             >
