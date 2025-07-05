@@ -86,11 +86,14 @@ const Incidents = () => {
                     });
             })
             .catch(console.error)
+            .finally(()=>{setLoading(false)})
     }
 
     useEffect(() => {
         loadIncidents()
     }, []);
+
+    const [loading, setLoading] = useState(true);
 
     return (
         <div>
@@ -100,7 +103,13 @@ const Incidents = () => {
                     + Agregar
                 </Button>
             </Flex>
-            <Table columns={columns} dataSource={data} pagination={false} locale={<Empty />} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                locale={<Empty />}
+                loading={loading}
+            />
         </div>
     );
 };
