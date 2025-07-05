@@ -30,7 +30,7 @@ const Configurations = () => {
                         id: item.id,
                         title: item.title,
                         createdDate: new Date(item.createdDate).toLocaleDateString(),
-                        user: users[item.userId],
+                        user: users[item.userId - 1],
                     }));
                     setData(formattedData);
                 }).catch((error) => {
