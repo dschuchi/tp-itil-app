@@ -38,6 +38,7 @@ const Configurations = () => {
                 });
             })
             .catch(console.error)
+            .finally(() => { setLoading(false) })
     }
 
     useEffect(() => {
@@ -81,6 +82,8 @@ const Configurations = () => {
         }
     ];
 
+    const [loading, setLoading] = useState(true);
+
     return (
         <div>
             <Flex justify='space-between' align='center'>
@@ -89,7 +92,13 @@ const Configurations = () => {
                     + Agregar
                 </Button>
             </Flex>
-            <Table columns={columns} dataSource={data} pagination={false} locale={<Empty />} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                loading={loading}
+                locale={<Empty />}
+            />
         </div>
     );
 };

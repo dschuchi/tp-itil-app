@@ -86,7 +86,7 @@ const Incidents = () => {
                     });
             })
             .catch(console.error)
-            .finally(()=>{setLoading(false)})
+            .finally(() => { setLoading(false) })
     }
 
     useEffect(() => {

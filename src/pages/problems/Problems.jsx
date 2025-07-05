@@ -65,14 +65,15 @@ const Problems = () => {
                 }));
                 setData(formattedData);
             })
-            .catch((error) => {
-                console.error('Error fetching problems:', error);
-            });
+            .catch(console.error)
+            .finally(() => { setLoading(false) })
     }
 
     useEffect(() => {
         loadProblems()
     }, [])
+
+    const [loading, setLoading] = useState(true);
 
     return (
         <div>
@@ -82,7 +83,13 @@ const Problems = () => {
                     + Agregar
                 </Button>
             </Flex>
-            <Table columns={columns} dataSource={data} pagination={false} locale={<Empty />} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                loading={loading}
+                locale={<Empty />}
+            />
         </div>
     );
 };

@@ -77,14 +77,15 @@ const Changes = () => {
                 }));
                 setData(formattedData);
             })
-            .catch((error) => {
-                console.error('Error fetching changes:', error);
-            });
+            .catch(console.error)
+            .finally(() => { setLoading(false) })
     }
 
     useEffect(() => {
         loadChanges()
     }, [])
+
+    const [loading, setLoading] = useState(true);
 
     return (
         <div>
@@ -94,7 +95,13 @@ const Changes = () => {
                     + Agregar
                 </Button>
             </Flex>
-            <Table columns={columns} dataSource={data} pagination={false} locale={<Empty />} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                loading={loading}
+                locale={<Empty />}
+            />
         </div>
     );
 };
