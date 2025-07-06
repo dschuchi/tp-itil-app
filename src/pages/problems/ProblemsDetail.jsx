@@ -70,6 +70,7 @@ const ProblemsDetail = () => {
             <RelatedItemList
                 data={incidents}
                 header='Incidentes relacionados'
+                 basePath="/incidents"
                 onDelete={handleDeleteIncident}
             />
 
