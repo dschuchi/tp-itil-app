@@ -41,7 +41,7 @@ const IncidentForm = ({ form, onFinish, disabled = false, submitButton = true, i
                 <SelectConfigItem disabled={disabled} />
             </Form.Item>
 
-            <Form.Item label="Causa Raíz" name="rootCause">
+            <Form.Item hidden label="Causa Raíz" name="rootCause">
                 <Input disabled={disabled} />
             </Form.Item>
 
